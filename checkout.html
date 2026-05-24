@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="ka">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="style.css"/>
+    <title>შეკვეთა | Natur Milk</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png" />
+    <style>
+      .back-btn {
+        display:inline-block;
+        background:#3CB371;
+        color:white;
+        padding:10px 18px;
+        border-radius:10px;
+        text-decoration:none;
+        font-size:15px;
+        margin-bottom:18px;
+      }
+      .back-btn:hover { background:#34a165; }
+
+      .summary {
+        background: #f4faf6;
+        border-radius: 14px;
+        border: 1px solid #dcefe3;
+        margin-top: 24px;
+        overflow: hidden;
+      }
+
+      .summary-title {
+        padding: 16px 20px 12px;
+        font-size: 15px;
+        font-weight: 700;
+        color: #2f7d4b;
+        border-bottom: 1px solid #dcefe3;
+        background: #eaf6ef;
+        letter-spacing: 0.02em;
+      }
+
+      .summary table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+      }
+
+      .summary thead th {
+        padding: 10px 16px;
+        text-align: left;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #7aaa8e;
+        background: #eaf6ef;
+        border-bottom: 1px solid #dcefe3;
+      }
+
+      .summary thead th:last-child {
+        text-align: right;
+      }
+
+      .summary tbody tr {
+        border-bottom: 1px solid #e8f3ec;
+        transition: background 0.15s;
+      }
+
+      .summary tbody tr:last-child {
+        border-bottom: none;
+      }
+
+      .summary tbody tr:hover {
+        background: #edf7f1;
+      }
+
+      .summary tbody td {
+        padding: 12px 16px;
+        color: #333;
+        vertical-align: middle;
+      }
+
+      .summary .td-name {
+        font-weight: 600;
+        color: #1e4d33;
+      }
+
+      .summary .td-qty {
+        text-align: center;
+        color: #555;
+      }
+
+      .summary .td-price {
+        text-align: right;
+        color: #555;
+      }
+
+      .summary .td-total {
+        text-align: right;
+        font-weight: 700;
+        color: #2f7d4b;
+      }
+
+      .summary-subtotal {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 16px;
+        border-top: 2px solid #c8e6d4;
+        background: #eaf6ef;
+        font-size: 15px;
+        font-weight: 700;
+        color: #2f7d4b;
+      }
+
+      .info-box {
+        background:#eef6ff;
+        border:1px solid #d6e8ff;
+        padding:16px;
+        border-radius:10px;
+        margin-top:20px;
+        font-size:14px;
+        line-height:1.6;
+      }
+
+      .checkout-box {
+        background:white;
+        padding:24px;
+        border-radius:14px;
+        box-shadow:0 4px 18px rgba(0,0,0,0.07);
+        margin-top:18px;
+      }
+
+      .checkout-box label {
+        display:block;
+        font-weight:600;
+        font-size:14px;
+        color:#444;
+        margin-bottom:4px;
+      }
+
+      .optional-tag {
+        font-weight:400;
+        color:#999;
+        font-size:12px;
+        margin-left:6px;
+      }
+
+      .checkout-box input,
+      .checkout-box textarea {
+        width:100%;
+        padding:12px;
+        margin-bottom:18px;
+        border-radius:10px;
+        border:1px solid #ccc;
+        font-size:15px;
+        box-sizing:border-box;
+      }
+
+      .checkout-box textarea {
+        min-height:90px;
+        resize:vertical;
+      }
+
+      .checkout-btn {
+        background:#3CB371;
+        color:white;
+        border:none;
+        padding:14px 24px;
+        font-size:25px;
+        font-weight:400;
+        letter-spacing:0.2em;
+        border-radius:12px;
+        cursor:pointer;
+        width:100%;
+        margin-top:10px;
+      }
+      .checkout-btn:hover { background:#34a165; }
+
+      .cart-bubble {
+        position:absolute;
+        top:-6px;
+        right:-6px;
+        background:#3CB371;
+        color:white;
+        border-radius:50%;
+        padding:2px 6px;
+        font-size:11px;
+        font-weight:600;
+        line-height:1;
+      }
+
+      .page-wrap {
+        padding: 30px 20px 60px;
+        max-width: 700px;
+        margin: auto;
+      }
+
+      /* DELIVERY SECTION */
+      .delivery-section {
+        background: white;
+        border-radius: 14px;
+        box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+        padding: 24px;
+        margin-top: 24px;
+        text-align: center;
+      }
+
+      .delivery-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid #e8f4ec;
+        padding-top: 14px;
+        margin-top: 14px;
+        font-size: 16px;
+        color: #555;
+      }
+
+      .total-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 2px solid #3CB371;
+        padding-top: 14px;
+        margin-top: 14px;
+      }
+
+      .total-row span {
+        font-size: 22px;
+        font-weight: 700;
+        color: #2f7d4b;
+      }
+
+      .field-error {
+        display: none;
+        color: #c0392b;
+        font-size: 13px;
+        margin-top: -14px;
+        margin-bottom: 12px;
+      }
+
+      /* TOAST */
+      #co-toast {
+        position: fixed;
+        bottom: 32px;
+        left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        background: #2f7d4b;
+        color: white;
+        padding: 16px 28px;
+        border-radius: 14px;
+        font-size: 17px;
+        font-weight: 600;
+        box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        z-index: 99999;
+        white-space: nowrap;
+      }
+      #co-toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+      #co-toast.error { background:#c0392b; }
+
+      /* TRUCK ANIMATION */
+      .loader {
+        width: fit-content;
+        height: fit-content;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 16px;
+      }
+      .truckWrapper {
+        width: 200px;
+        height: 100px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        align-items: center;
+        justify-content: flex-end;
+        overflow-x: hidden;
+      }
+      .truckBody {
+        width: 130px;
+        height: fit-content;
+        margin-bottom: 6px;
+        animation: motion 1s linear infinite;
+      }
+      @keyframes motion {
+        0%   { transform: translateY(0px); }
+        50%  { transform: translateY(3px); }
+        100% { transform: translateY(0px); }
+      }
+      .truckTires {
+        width: 130px;
+        height: fit-content;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0px 10px 0px 15px;
+        position: absolute;
+        bottom: 0;
+      }
+      .truckTires svg { width: 24px; }
+      .road {
+        width: 100%;
+        height: 1.5px;
+        background-color: #282828;
+        position: relative;
+        bottom: 0;
+        align-self: flex-end;
+        border-radius: 3px;
+      }
+      .road::before {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 100%;
+        background-color: #282828;
+        right: -50%;
+        border-radius: 3px;
+        animation: roadAnimation 1.4s linear infinite;
+        border-left: 10px solid white;
+      }
+      .road::after {
+        content: "";
+        position: absolute;
+        width: 10px;
+        height: 100%;
+        background-color: #282828;
+        right: -65%;
+        border-radius: 3px;
+        animation: roadAnimation 1.4s linear infinite;
+        border-left: 4px solid white;
+      }
+      .lampPost {
+        position: absolute;
+        bottom: 0;
+        right: -90%;
+        height: 90px;
+        animation: roadAnimation 1.4s linear infinite;
+      }
+      @keyframes roadAnimation {
+        0%   { transform: translateX(0px); }
+        100% { transform: translateX(-350px); }
+      }
+
+      /* DELIVERY OPTION CARDS */
+      .delivery-options {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin: 20px 0 4px;
+      }
+
+      .delivery-opt-card {
+        border: 2px solid #d0e8d8;
+        border-radius: 12px;
+        padding: 16px 18px;
+        cursor: pointer;
+        transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+        background: white;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .delivery-opt-card:hover {
+        border-color: #3CB371;
+        background: #f4fbf7;
+      }
+
+      .delivery-opt-card.is-selected {
+        border-color: #3CB371;
+        background: #f0faf4;
+        box-shadow: 0 0 0 3px rgba(60,179,113,0.15);
+      }
+
+      .delivery-opt-card .opt-text {
+        flex: 1;
+        text-align: left;
+      }
+
+      .delivery-opt-card .opt-title {
+        display: block;
+        font-size: 15px;
+        font-weight: 700;
+        color: #1e4d33;
+        margin-bottom: 3px;
+      }
+
+      .delivery-opt-card .opt-sub {
+        display: block;
+        font-size: 12px;
+        color: #777;
+        line-height: 1.5;
+      }
+
+      .delivery-opt-card .opt-price {
+        font-size: 13px;
+        font-weight: 700;
+        color: #2f7d4b;
+        background: #eaf6ef;
+        padding: 4px 12px;
+        border-radius: 20px;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      /* Animated checkbox inside card */
+      .checkbox-wrapper-46 input[type="radio"] {
+        display: none;
+        visibility: hidden;
+      }
+      .checkbox-wrapper-46 .cbx {
+        -webkit-user-select: none;
+        user-select: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+      }
+      .checkbox-wrapper-46 .cbx span {
+        display: inline-block;
+        vertical-align: middle;
+        transform: translate3d(0, 0, 0);
+      }
+      .checkbox-wrapper-46 .cbx span:first-child {
+        position: relative;
+        width: 22px;
+        height: 22px;
+        border-radius: 4px;
+        transform: scale(1);
+        vertical-align: middle;
+        border: 2px solid #9098a9;
+        transition: all 0.2s ease;
+        flex-shrink: 0;
+      }
+      .checkbox-wrapper-46 .cbx span:first-child svg {
+        position: absolute;
+        top: 4px;
+        left: 3px;
+        fill: none;
+        stroke: #ffffff;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 16px;
+        stroke-dashoffset: 16px;
+        transition: all 0.3s ease;
+        transition-delay: 0.1s;
+        transform: translate3d(0, 0, 0);
+      }
+      .checkbox-wrapper-46 .cbx span:first-child:before {
+        content: "";
+        width: 100%;
+        height: 100%;
+        background: #3CB371;
+        display: block;
+        transform: scale(0);
+        opacity: 1;
+        border-radius: 50%;
+      }
+      .checkbox-wrapper-46 .cbx:hover span:first-child {
+        border-color: #3CB371;
+      }
+      .checkbox-wrapper-46 .inp-cbx:checked + .cbx span:first-child {
+        background: #2f7d4b;
+        border-color: #2f7d4b;
+        animation: wave-46 0.4s ease;
+      }
+      .checkbox-wrapper-46 .inp-cbx:checked + .cbx span:first-child svg {
+        stroke-dashoffset: 0;
+      }
+      .checkbox-wrapper-46 .inp-cbx:checked + .cbx span:first-child:before {
+        transform: scale(3.5);
+        opacity: 0;
+        transition: all 0.6s ease;
+      }
+      @keyframes wave-46 {
+        50% { transform: scale(0.9); }
+      }
+    </style>
+  </head>
+
+  <body class="body">
+
+    <!-- NAVBAR (CLEAN, FIXED) -->
+    <header class="site-nav" id="siteNav">
+      <div class="nav-inner">
+
+        <button class="nav-toggle" aria-expanded="false" aria-label="მენიუს გახსნა">
+          <svg class="icon icon-bars" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+            <path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+          <svg class="icon icon-x" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+
+        <a href="index.html" class="brand" aria-label="Natur Milk">
+          <img class="brandmark" src="images/logo.webp" alt="Natur Milk">
+        </a>
+
+        <nav class="primary-nav">
+
+        </nav>
+
+        <div class="actions">
+          <a href="#" class="search">ძებნა</a>
+
+          <a href="basket.html" class="cart" style="position:relative;" aria-label="კალათა">
+            <img src="images/basket_green.jpeg" width="36" alt="კალათა">
+            <span class="cart-bubble" id="cartBubble">0</span>
+          </a>
+        </div>
+
+      </div>
+
+      <div class="mobile-panel" id="mobilePanel">
+        <nav>
+          <ul class="mobile-list">
+            <li><a href="index.html#shop">მაღაზია</a></li>
+            <li><a href="index.html#about">ჩვენს შესახებ</a></li>
+            <li><a href="index.html#blog">ბლოგი</a></li>
+            <li><a href="productPage.html">ყველა პროდუქტი</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- PAGE -->
+    <main class="page-wrap">
+
+      <div id="co-toast"></div>
+
+      <a href="basket.html" class="back-btn">← უკან კალათაში</a>
+
+      <h1 style="text-align:center; color:#2f7d4b; margin-bottom:20px; padding-top:20px;">შეკვეთის მოთხოვნა</h1>
+
+      <!-- 1. FORM -->
+      <div class="checkout-box">
+        <h2 style="color:#2f7d4b;margin:0 0 20px;font-weight: 500;">თქვენი ინფორმაცია</h2>
+
+        <label>სახელი და გვარი *</label>
+        <input type="text" id="fullName" placeholder="სახელი და გვარი">
+        <div class="field-error" id="err-name">გთხოვთ შეავსოთ სახელი და გვარი.</div>
+
+        <label>ელ-ფოსტა *</label>
+        <input type="email" id="email" placeholder="ელ-ფოსტა">
+        <div class="field-error" id="err-email">გთხოვთ შეავსოთ სწორი ელ-ფოსტა.</div>
+
+        <label>ტელეფონი (WhatsApp) *</label>
+        <input type="text" id="phone" placeholder="ტელეფონი (WhatsApp)">
+        <div class="field-error" id="err-phone">გთხოვთ შეავსოთ ტელეფონი.</div>
+
+        <label>ზუსტი მისამართი *</label>
+        <input type="text" id="address" placeholder="ფოსტი, კორპუსი, ბინა">
+        <div class="field-error" id="err-address">გთხოვთ შეავსოთ მისამართი.</div>
+
+        <label>კომენტარი <span class="optional-tag">(სურვილისამებარ)</span></label>
+        <textarea id="comment" placeholder="მაგ.: უმარილო, მარილიანი, პატარა/დიდი თავი..."></textarea>
+      </div>
+
+      <!-- 2. ORDER SUMMARY -->
+      <div class="summary" id="orderSummary"></div>
+
+      <!-- 3. DELIVERY + TRUCK + TOTAL -->
+      <div class="delivery-section">
+
+        <div class="loader">
+          <div class="truckWrapper">
+            <div class="truckBody">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 198 93" class="trucksvg">
+                <path stroke-width="3" stroke="#282828" fill="#3CB371" d="M135 22.5H177.264C178.295 22.5 179.22 23.133 179.594 24.0939L192.33 56.8443C192.442 57.1332 192.5 57.4404 192.5 57.7504V89C192.5 90.3807 191.381 91.5 190 91.5H135C133.619 91.5 132.5 90.3807 132.5 89V25C132.5 23.6193 133.619 22.5 135 22.5Z"></path>
+                <path stroke-width="3" stroke="#282828" fill="#7D7C7C" d="M146 33.5H181.741C182.779 33.5 183.709 34.1415 184.078 35.112L190.538 52.112C191.16 53.748 189.951 55.5 188.201 55.5H146C144.619 55.5 143.5 54.3807 143.5 53V36C143.5 34.6193 144.619 33.5 146 33.5Z"></path>
+                <path stroke-width="2" stroke="#282828" fill="#282828" d="M150 65C150 65.39 149.763 65.8656 149.127 66.2893C148.499 66.7083 147.573 67 146.5 67C145.427 67 144.501 66.7083 143.873 66.2893C143.237 65.8656 143 65.39 143 65C143 64.61 143.237 64.1344 143.873 63.7107C144.501 63.2917 145.427 63 146.5 63C147.573 63 148.499 63.2917 149.127 63.7107C149.763 64.1344 150 64.61 150 65Z"></path>
+                <rect stroke-width="2" stroke="#282828" fill="#FFFCAB" rx="1" height="7" width="5" y="63" x="187"></rect>
+                <rect stroke-width="2" stroke="#282828" fill="#282828" rx="1" height="11" width="4" y="81" x="193"></rect>
+                <rect stroke-width="3" stroke="#282828" fill="#DFDFDF" rx="2.5" height="90" width="121" y="1.5" x="6.5"></rect>
+                <rect stroke-width="2" stroke="#282828" fill="#DFDFDF" rx="2" height="4" width="6" y="84" x="1"></rect>
+              </svg>
+            </div>
+            <div class="truckTires">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 30 30" class="tiresvg">
+                <circle stroke-width="3" stroke="#282828" fill="#282828" r="13.5" cy="15" cx="15"></circle>
+                <circle fill="#DFDFDF" r="7" cy="15" cx="15"></circle>
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 30 30" class="tiresvg">
+                <circle stroke-width="3" stroke="#282828" fill="#282828" r="13.5" cy="15" cx="15"></circle>
+                <circle fill="#DFDFDF" r="7" cy="15" cx="15"></circle>
+              </svg>
+            </div>
+            <div class="road"></div>
+            <svg xml:space="preserve" viewBox="0 0 453.459 453.459" xmlns="http://www.w3.org/2000/svg" fill="#000000" class="lampPost">
+              <path d="M252.882,0c-37.781,0-68.686,29.953-70.245,67.358h-6.917v8.954c-26.109,2.163-45.463,10.011-45.463,19.366h9.993c-1.65,5.146-2.507,10.54-2.507,16.017c0,28.956,23.558,52.514,52.514,52.514c28.956,0,52.514-23.558,52.514-52.514c0-5.478-0.856-10.872-2.506-16.017h9.992c0-9.354-19.352-17.204-45.463-19.366v-8.954h-6.149C200.189,38.779,223.924,16,252.882,16c29.952,0,54.32,24.368,54.32,54.32c0,28.774-11.078,37.009-25.105,47.437c-17.444,12.968-37.216,27.667-37.216,78.884v113.914h-0.797c-5.068,0-9.174,4.108-9.174,9.177c0,2.844,1.293,5.383,3.321,7.066c-3.432,27.933-26.851,95.744-8.226,115.459v11.202h45.75v-11.202c18.625-19.715-4.794-87.527-8.227-115.459c2.029-1.683,3.322-4.223,3.322-7.066c0-5.068-4.107-9.177-9.176-9.177h-0.795V196.641c0-43.174,14.942-54.283,30.762-66.043c14.793-10.997,31.559-23.461,31.559-60.277C323.202,31.545,291.656,0,252.882,0zM232.77,111.694c0,23.442-19.071,42.514-42.514,42.514c-23.442,0-42.514-19.072-42.514-42.514c0-5.531,1.078-10.957,3.141-16.017h78.747C231.693,100.736,232.77,106.162,232.77,111.694z"></path>
+            </svg>
+          </div>
+        </div>
+
+        <div class="delivery-options">
+
+          <label class="delivery-opt-card is-selected" id="card-delivery">
+            <div class="checkbox-wrapper-46">
+              <input type="radio" id="cbx-delivery" name="deliveryType" value="delivery" class="inp-cbx" checked onchange="onDeliveryChange()" />
+              <label class="cbx" for="cbx-delivery">
+                <span><svg viewBox="0 0 12 10" height="10px" width="12px"><polyline points="1.5 6 4.5 9 10.5 1"></polyline></svg></span>
+              </label>
+            </div>
+            <div class="opt-text">
+              <span class="opt-title">🚚 საკურიერო</span>
+              <span class="opt-sub">თბილისის ფარგლებში</span>
+            </div>
+            <span class="opt-price" id="deliveryPriceLabel">+ 5 ₾ <span style="display:block;font-size:11px;font-weight:400;color:#888;">(კურიერის სასარგებლოდ)</span></span>
+          </label>
+
+          <label class="delivery-opt-card" id="card-pickup">
+            <div class="checkbox-wrapper-46">
+              <input type="radio" id="cbx-pickup" name="deliveryType" value="pickup" class="inp-cbx" onchange="onDeliveryChange()" />
+              <label class="cbx" for="cbx-pickup">
+                <span><svg viewBox="0 0 12 10" height="10px" width="12px"><polyline points="1.5 6 4.5 9 10.5 1"></polyline></svg></span>
+              </label>
+            </div>
+            <div class="opt-text">
+              <span class="opt-title">🏪 ადგილზე</span>
+              <span class="opt-sub">დავით გურამიშვილის გამზ. 8,<br>თბილისი 0182</span>
+            </div>
+            <span class="opt-price">უფასო</span>
+          </label>
+
+        </div>
+
+        <div class="total-row">
+          <span>ჯამი:</span>
+          <span id="checkoutTotal">0 ₾</span>
+        </div>
+
+
+        <button class="checkout-btn" onclick="submitOrder()">შეკვეთა</button>
+      </div>
+
+      <!-- INFO BOX -->
+      <div class="info-box">
+        💡 <strong>მნიშვნელოვანი:</strong>
+        საბოლოო თანხა <strong>გადაითვლება </strong>შეკვეთილი ყველის თავის <strong>წონიდან გამომდინარე</strong>.
+        <br><br>
+      </div>
+
+    </main>
+
+    <script src="js/cart.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/navbar.js"></script>
+
+    <script>
+      function showToast(msg, isError) {
+        const t = document.getElementById("co-toast");
+        t.textContent = msg;
+        t.className = isError ? "error" : "";
+        void t.offsetWidth;
+        t.classList.add("show");
+        clearTimeout(t._timer);
+        t._timer = setTimeout(() => t.classList.remove("show"), 3000);
+      }
+
+      function showFieldError(id, show) {
+        const el = document.getElementById(id);
+        if (el) el.style.display = show ? "block" : "none";
+      }
+
+      // ====== FIX NAV OVERLAP ======
+      function applyNavOffset() {
+        const nav = document.getElementById("siteNav");
+        if (!nav) return;
+        document.documentElement.style.setProperty("--nav-h", (nav.offsetHeight + 10) + "px");
+      }
+      window.addEventListener("load", applyNavOffset);
+      window.addEventListener("resize", applyNavOffset);
+
+      // ====== CART BUBBLE ======
+      function updateNavbarCartCount() {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        let count = CartUtils.getCartCount(cart);
+        const bubble = document.getElementById("cartBubble");
+        if (bubble) bubble.textContent = count;
+      }
+
+      function getDeliveryFee(cart) {
+        const totalWeight = CartUtils.getCartWeightKg(cart);
+        if (totalWeight < 5)    return 6;
+        if (totalWeight < 10)   return 7;
+        return 8;
+      }
+
+      function updateDeliveryLabel(fee) {
+        const lbl = document.getElementById("deliveryPriceLabel");
+        if (lbl) lbl.innerHTML = `+ ${fee} ₾ <span style="display:block;font-size:11px;font-weight:400;color:#888;">(კურიერის სასარგებლოდ)</span>`;
+      }
+
+      function onDeliveryChange() {
+        const val = document.querySelector('input[name="deliveryType"]:checked').value;
+        document.getElementById("card-delivery").classList.toggle("is-selected", val === "delivery");
+        document.getElementById("card-pickup").classList.toggle("is-selected", val === "pickup");
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const subtotal = cart.reduce((s, i) => s + CartUtils.getLineTotal(i), 0);
+        const fee = getDeliveryFee(cart);
+        updateDeliveryLabel(fee);
+        document.getElementById("checkoutTotal").textContent = subtotal + " ₾";
+      }
+
+      function loadSummary() {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        let box = document.getElementById("orderSummary");
+        let total = 0;
+
+        if (cart.length === 0) {
+          box.innerHTML = '<div class="summary-title">შეკვეთის შეჯამება</div><p style="padding:16px 20px;color:#888;">კალათა ცარიელია.</p>';
+          document.getElementById("checkoutTotal").textContent = "0 ₾";
+          updateNavbarCartCount();
+          return;
+        }
+
+        let rows = "";
+        cart.forEach(item => {
+          const qty = Number(item.qty) || 0;
+          const price = Number(item.price) || 0;
+          const lineTotal = CartUtils.getLineTotal(item);
+          const perKg = CartUtils.isPerKg(item);
+          total += lineTotal;
+          rows += `
+            <tr>
+              <td class="td-name">${item.name}</td>
+              <td class="td-qty">${perKg ? CartUtils.formatQtyLabel(item) : qty}</td>
+              <td class="td-price">${perKg ? price + " ₾/კგ" : price + " ₾"}</td>
+              <td class="td-total">${lineTotal} ₾</td>
+            </tr>`;
+        });
+
+        box.innerHTML = `
+          <div class="summary-title">შეკვეთის შეჯამება</div>
+          <table>
+            <thead>
+              <tr>
+                <th>პროდუქტი</th>
+                <th style="text-align:center;">რაოდ. / წონა</th>
+                <th style="text-align:right;">ფასი</th>
+                <th style="text-align:right;">ჯამი</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+          <div class="summary-subtotal">
+            <span>ჯამი (საკურიეროს გარეშე)</span>
+            <span>${total} ₾</span>
+          </div>`;
+
+        const deliveryVal = document.querySelector('input[name="deliveryType"]:checked')?.value || "delivery";
+        const fee = getDeliveryFee(cart);
+        updateDeliveryLabel(fee);
+        document.getElementById("checkoutTotal").textContent = total + " ₾";
+        updateNavbarCartCount();
+      }
+
+      async function submitOrder() {
+        const name    = document.getElementById("fullName").value.trim();
+        const email   = document.getElementById("email").value.trim();
+        const phone   = document.getElementById("phone").value.trim();
+        const address = document.getElementById("address").value.trim();
+        const comment = document.getElementById("comment").value.trim();
+
+        showFieldError("err-name",    !name);
+        showFieldError("err-email",   !email || !email.includes("@"));
+        showFieldError("err-phone",   !phone);
+        showFieldError("err-address", !address);
+
+        if (!name || !email || !email.includes("@") || !phone || !address) {
+          showToast("გთხოვთ შეავსოთ სავალდებული ველები.", true);
+          return;
+        }
+
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        if (cart.length === 0) {
+          showToast("კალათა ცარიელია.", true);
+          return;
+        }
+
+        let total = 0;
+        const items = cart.map(item => {
+          const qty   = Number(item.qty)   || 0;
+          const price = Number(item.price) || 0;
+          const lineTotal = CartUtils.getLineTotal(item);
+          total += lineTotal;
+          const perKg = CartUtils.isPerKg(item);
+          return {
+            name: item.name,
+            price,
+            qty,
+            unit: perKg ? "per-kg" : "unit",
+            qtyLabel: perKg ? CartUtils.formatQtyLabel(item) : String(qty),
+            lineTotal
+          };
+        });
+
+        const deliveryType = document.querySelector('input[name="deliveryType"]:checked')?.value || "delivery";
+        const delivery = deliveryType === "delivery" ? getDeliveryFee(cart) : 0;
+        const deliveryNote = deliveryType === "delivery"
+          ? `<br><span style="font-size:13px;font-weight:400;color:#555;">კურიერთან გადასახადი ამანათის მიღების დროს</span>`
+          : "";
+        const deliveryLabel = deliveryType === "delivery"
+          ? `საკურიეროს (+${delivery}₾)${deliveryNote}`
+          : "თვითგამოტანა (უფასო)";
+
+        const payload = {
+          name, email, phone, address, comment,
+          deliveryType: deliveryLabel,
+          items,
+          total:    parseFloat((total + delivery).toFixed(2)),
+          delivery
+        };
+
+        try {
+          const res = await fetch("https://script.google.com/macros/s/AKfycbwfbY5FgZDjjGKdwPBF278tf6MN9g7xynqwss21xWdIdvIQqD8M1iM-jARFUXrrPNc_9A/exec", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+            mode: "no-cors"
+          });
+          showToast("შეკვეთა წარმატებით გაიგზავნა! მალე დაგიკავშირდებთ WhatsApp-ზე.");
+          localStorage.removeItem("cart");
+          setTimeout(() => window.location.href = "index.html", 2800);
+        } catch (e) {
+          showToast("შეცდომა მოხდა. ინტერნეტი შეამოწმეთ და სცადეთ თავიდან.", true);
+        }
+      }
+
+      loadSummary();
+    </script>
+
+  </body>
+</html>

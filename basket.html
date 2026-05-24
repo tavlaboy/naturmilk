@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ka">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png" />
+
+    <title>კალათა | Natur Milk</title>
+
+    <style>
+      /* Back button */
+      .back-btn {
+        display:inline-block;
+        background:#3CB371;
+        color:white;
+        padding:10px 18px;
+        border-radius:10px;
+        text-decoration:none;
+        font-size:15px;
+        margin-bottom:25px;
+      }
+      .back-btn:hover { background:#34a165; }
+
+      /* Cart item box */
+      .cart-item-box {
+        background:white;
+        border-radius:14px;
+        padding:18px 20px;
+        margin-bottom:16px;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        box-shadow:0 4px 18px rgba(0,0,0,0.07);
+      }
+
+      .qty-btn {
+        background:#3CB371;
+        color:white;
+        border:none;
+        width:30px;
+        height:30px;
+        font-size:20px;
+        border-radius:8px;
+        cursor:pointer;
+      }
+
+      .remove-btn {
+        background:#ff6b6b;
+        color:white;
+        border:none;
+        padding:7px 12px;
+        border-radius:8px;
+        cursor:pointer;
+        font-size:14px;
+      }
+
+      /* Green cart bubble */
+      .cart-bubble {
+        position:absolute;
+        top:-6px;
+        right:-6px;
+        background:#3CB371;
+        color:white;
+        border-radius:50%;
+        padding:2px 6px;
+        font-size:11px;
+        font-weight:600;
+        line-height:1;
+      }
+
+      .total-box {
+        background:white;
+        padding:22px;
+        border-radius:14px;
+        box-shadow:0 4px 18px rgba(0,0,0,0.07);
+      }
+
+      .checkout-btn {
+        background:#3CB371;
+        color:white;
+        border:none;
+        padding:14px 24px;
+        font-size:17px;
+        border-radius:12px;
+        cursor:pointer;
+        width:100%;
+        margin-top:15px;
+      }
+      .checkout-btn:hover { background:#34a165; }
+    </style>
+  </head>
+
+  <body class="body">
+
+    <!-- NAVBAR -->
+    <header class="site-nav" id="siteNav">
+      <div class="nav-inner">
+
+        <button class="nav-toggle" aria-expanded="false">
+          <svg class="icon icon-bars" viewBox="0 0 24 24" width="26"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2"/></svg>
+          <svg class="icon icon-x" viewBox="0 0 24 24" width="26"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2"/></svg>
+        </button>
+
+        <a href="index.html" class="brand">
+          <img class="brandmark" src="images/logo.webp" alt="Natur Milk">
+        </a>
+
+        <nav class="primary-nav">
+          <ul class="menu">
+            <li><a href="index.html#shop">მაღაზია</a></li>
+            <li><a href="index.html#about">ჩვენს შესახებ</a></li>
+            <li><a href="index.html#blog">ბლოგი</a></li>
+            <li><a href="productPage.html">ყველა პროდუქტი</a></li>
+          </ul>
+        </nav>
+
+        <div class="actions">
+          <a href="#" class="search">ძებნა</a>
+
+          <a href="basket.html" class="cart" style="position:relative;">
+            <img src="images/basket_green.jpeg" width="36">
+            <span class="cart-bubble" id="cartBubble">0</span>
+          </a>
+        </div>
+
+      </div>
+
+      <div class="mobile-panel" id="mobilePanel">
+        <nav>
+          <ul class="mobile-list">
+            <li><a href="index.html#shop">მაღაზია</a></li>
+            <li><a href="index.html#about">ჩვენს შესახებ</a></li>
+            <li><a href="index.html#blog">ბლოგი</a></li>
+            <li><a href="productPage.html">ყველა პროდუქტი</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- PAGE -->
+    <main class="container" style="padding:100px 20px; max-width:800px; margin:auto;">
+
+      <a href="productPage.html" class="back-btn" style="display:inline-flex;align-items:center;gap:8px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        დაბრუნება
+      </a>
+
+      <h1 style="text-align:center; color:#2f7d4b; margin-bottom:25px;">კალათა</h1>
+
+      <div id="cartItems"></div>
+
+      <div class="total-box">
+        <h2 style="margin:0; font-size:22px; color:#2f7d4b;">
+          ჯამი: <span id="totalPrice">0</span> ₾
+        </h2>
+
+        <button onclick="goCheckout()" class="checkout-btn">გაგრძელება</button>
+      </div>
+
+    </main>
+
+    <!-- SCRIPTS -->
+    <script src="js/cart.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/navbar.js"></script>
+
+    <script>
+      function updateNavbarCartCount() {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        let count = CartUtils.getCartCount(cart);
+        document.getElementById("cartBubble").textContent = count;
+      }
+
+      function loadCart() {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        let cartBox = document.getElementById("cartItems");
+        let total = 0;
+
+        updateNavbarCartCount();
+
+        cartBox.innerHTML = "";
+
+        cart.forEach((item, index) => {
+          let itemTotal = CartUtils.getLineTotal(item);
+          total += itemTotal;
+          const qtyLabel = CartUtils.formatQtyLabel(item);
+          const lineDetail = CartUtils.formatLineDetail(item);
+
+          cartBox.innerHTML += `
+            <div class="cart-item-box">
+              <div>
+                <h3 style="margin:0 0 6px;">${item.name}</h3>
+                <div style="color:#2f7d4b; font-weight:600;">
+                  ${lineDetail}
+                </div>
+              </div>
+
+              <div style="display:flex; gap:10px; align-items:center;">
+                <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
+                <span style="min-width:52px;text-align:center;">${qtyLabel}</span>
+                <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+                <button class="remove-btn" onclick="removeItem(${index})">წაშლა</button>
+              </div>
+            </div>
+          `;
+        });
+
+        document.getElementById("totalPrice").textContent = CartUtils.roundMoney(total);
+      }
+
+      function changeQty(i, direction) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const item = cart[i];
+        if (!item) return;
+        const updated = CartUtils.changeItemQty(item, direction);
+        if (!updated) cart.splice(i, 1);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        loadCart();
+        updateNavbarCartCount();
+      }
+
+      function removeItem(i) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        cart.splice(i, 1);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        loadCart();
+        updateNavbarCartCount();
+      }
+
+      function goCheckout() {
+        window.location.href = "checkout.html";
+      }
+
+      loadCart();
+    </script>
+
+  </body>
+</html>

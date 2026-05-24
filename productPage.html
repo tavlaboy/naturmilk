@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>პროდუქცია | NaturMilk</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png" />
+
+    <style>
+
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* NAVIGATION BAR */
+        nav {
+            width: 100%;
+            background: white;
+            border-bottom: 1px solid #e6e6e6;
+            padding: 18px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        /* LOGO */
+        .brand img,
+        .brand-img {
+            height: 68px;
+            width: auto;
+            display: block;
+        }
+
+        /* Desktop menu */
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 32px;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+
+        nav ul li {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            font-size: 18px;
+            color: #333;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        nav ul li a:hover {
+            color: #3CB371;
+        }
+
+        /* Desktop basket icon in menu */
+        .desktop-basket-icon {
+            width: 32px;
+            height: 32px;
+            margin-left: 8px;
+            cursor: pointer;
+        }
+
+        /* FLOATING CART BUTTON */
+        #floatingCart {
+            display: none;
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 999;
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            border: 3px solid #3CB371;
+            box-shadow: 0 4px 18px rgba(60,179,113,0.45);
+            background: rgba(60,179,113,0.12);
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.18s, box-shadow 0.18s;
+            overflow: visible;
+        }
+        #floatingCart:hover {
+            transform: scale(1.08);
+            box-shadow: 0 6px 24px rgba(60,179,113,0.6);
+        }
+        #floatingCart img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+        }
+        #floatingCartCount {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: #3CB371;
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 50%;
+            min-width: 22px;
+            text-align: center;
+            line-height: 1.4;
+            pointer-events: none;
+        }
+
+        .nav-counter {
+            position: absolute;
+            top: -8px;
+            right: -12px;
+            background: #3CB371;
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 50%;
+        }
+
+        /* MOBILE LAYOUT ----------------------------------- */
+        .mobile-basket {
+            display: none;
+            position: relative;
+        }
+
+        .mobile-basket img {
+            width: 44px;
+            height: 44px;
+        }
+
+        .mobile-counter {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: #3CB371;
+            color: white;
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 50%;
+            font-weight: bold;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 26px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 700px) {
+
+            nav {
+                padding: 16px 18px;
+            }
+
+            .brand-img {
+                height: 52px !important;
+            }
+
+            /* hide desktop menu */
+            nav ul {
+                display: none;
+                position: absolute;
+                background: white;
+                top: 88px;
+                right: 16px;
+                left: 16px;
+                flex-direction: column;
+                width: auto;
+                padding: 20px 24px;
+                border-radius: 14px;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.14);
+                gap: 0;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            nav ul li a {
+                font-size: 22px;
+                padding: 14px 0;
+                display: block;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            nav ul li:last-child a {
+                border-bottom: none;
+            }
+
+            /* show hamburger */
+            .menu-toggle {
+                display: block;
+                font-size: 40px;
+                margin-left: 14px;
+                line-height: 1;
+            }
+
+            /* show mobile basket */
+            .mobile-basket {
+                display: block;
+            }
+
+            .mobile-basket img {
+                width: 48px;
+                height: 48px;
+            }
+
+            .mobile-counter {
+                font-size: 15px;
+                padding: 4px 8px;
+            }
+
+            /* hide desktop basket in menu */
+            .desktop-basket-holder {
+                display: none;
+            }
+
+            /* product grid: single column on mobile */
+            .product-grid {
+                grid-template-columns: 1fr;
+                grid-gap: 24px;
+            }
+
+            .product-card {
+                padding: 22px;
+                border-radius: 16px;
+            }
+
+            .product-card h3 {
+                font-size: 24px;
+                margin: 18px 0 10px;
+            }
+
+            .price {
+                font-size: 24px;
+                margin-bottom: 8px;
+            }
+
+            .head-weight {
+                font-size: 15px;
+                margin-bottom: 18px;
+            }
+
+            .add-btn {
+                font-size: 20px;
+                padding: 18px 24px;
+                border-radius: 14px;
+            }
+
+            h1 {
+                font-size: 30px;
+                margin-bottom: 24px;
+            }
+
+            .container {
+                padding: 24px 16px;
+            }
+        }
+
+        /* MAIN CONTENT */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2f7d4b;
+        }
+
+        .catalog-notice {
+            text-align: center;
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 28px;
+            line-height: 1.5;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-gap: 20px;
+        }
+
+        .product-card {
+            border: 1px solid #e6e6e6;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            background: white;
+
+            box-shadow: 0px 4px 12px rgba(0,0,0,0.06);
+            animation: fadeIn 0.5s ease forwards;
+            opacity: 0;
+
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0px 8px 18px rgba(0,0,0,0.12);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .product-card h3 {
+            margin: 14px 0 6px;
+            font-size: 20px;
+        }
+
+        .price {
+            font-size: 19px;
+            margin-bottom: 6px;
+            font-weight: 700;
+            color:#2f7d4b;
+        }
+
+        .head-weight {
+            font-size: 13px;
+            color: #888;
+            margin: 0 0 8px;
+            line-height: 1.4;
+        }
+
+        .cart-hint {
+            font-size: 12px;
+            color: #888;
+            margin: 0 0 14px;
+            line-height: 1.35;
+        }
+
+        .add-btn {
+            display: inline-block;
+            background: #3CB371;
+            border: none;
+            padding: 14px 20px;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            transition: 0.2s;
+        }
+
+        .add-btn:hover {
+            background: #34a165;
+        }
+
+        /* TOAST */
+        #toast {
+            position: fixed;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: #2f7d4b;
+            color: white;
+            padding: 16px 28px;
+            border-radius: 14px;
+            font-size: 17px;
+            font-weight: 600;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            z-index: 99999;
+            white-space: nowrap;
+        }
+
+        #toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        #toast.error {
+            background: #c0392b;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- TOAST -->
+    <div id="toast"></div>
+
+    <!-- NAVIGATION BAR -->
+    <nav>
+
+        <!-- NEW CLEAN LOGO -->
+        <a href="index.html" class="brand">
+    <img src="images/logo.webp" alt="Natur Milk" class="brand-img">
+</a>
+
+
+        <!-- MOBILE BASKET -->
+        <a href="basket.html" class="mobile-basket">
+            <img src="images/basket_green.jpeg" alt="basket">
+            <div class="mobile-counter" id="basketCounterMobile">0</div>
+        </a>
+
+        <!-- HAMBURGER -->
+        <span class="menu-toggle" onclick="toggleMenu()">☰</span>
+
+        <!-- DESKTOP MENU -->
+        <ul id="menuList">
+            <li><a href="index.html">მთავარი</a></li>
+            <li><a href="productPage.html">კატალოგი</a></li>
+
+            <li class="desktop-basket-holder">
+                <a href="basket.html">კალათა</a>
+                <a href="basket.html">
+                    <img src="images/basket_green.jpeg" class="desktop-basket-icon">
+                </a>
+                <span class="nav-counter" id="basketCounterDesktop">0</span>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="container">
+
+        <h1>კატალოგი</h1>
+        <p class="catalog-notice">ყველის ფასი მითითებულია 1 კგ-ზე. საბოლოო თანხა დამოკიდებულია შეკვეთის წონაზე.</p>
+
+        <div class="product-grid">
+
+            <!-- PRODUCT CARDS START -->
+
+            <div class="product-card" data-name="სულგუნი" data-price="20" data-weight="1" data-pricing="per-kg" data-step="0.5">
+                <img src="images/suratebi/sulgunii.webp" alt="სულგუნი">
+                <h3>სულგუნი</h3>
+                <div class="price">20 ლარი / კგ</div>
+                <p class="cart-hint">შეგიძლიათ შეცვალოთ კალათაში</p>
+                <p class="head-weight">წონა: მთელი თავი ≈ 2კგ ±200გრ</p>
+                <button class="add-btn">კალათაში დამატება</button>
+            </div>
+
+            <div class="product-card" data-name="მარმარილოს ყველი" data-price="20" data-weight="1" data-pricing="per-kg" data-step="0.5">
+                <img src="images/suratebi/marmarilo.png" alt="მარმარილოს ყველი">
+                <h3>მარმარილოს ყველი</h3>
+                <div class="price">20 ლარი / კგ</div>
+                <p class="cart-hint">შეგიძლიათ შეცვალოთ კალათაში</p>
+                <p class="head-weight">წონა: მთელი თავი ≈ 1კგ</p>
+                <button class="add-btn">კალათაში დამატება</button>
+            </div>
+
+            <div class="product-card" data-name="იმერული ყველი (სუფრის)" data-price="15" data-weight="1" data-pricing="per-kg" data-step="0.5">
+                <img src="images/suratebi/imeruli.png" alt="იმერული ყველი (სუფრის)">
+                <h3>იმერული ყველი სუფრის</h3>
+                <div class="price">15 ლარი / კგ</div>
+                <p class="cart-hint">შეგიძლიათ შეცვალოთ კალათაში</p>
+                <p class="head-weight">წონა: მთელი თავი ≈ 2კგ ±200გრ</p>
+                <button class="add-btn">კალათაში დამატება</button>
+            </div>
+
+            <div class="product-card" data-name="ქარხნული ყველი" data-price="22" data-weight="1" data-pricing="per-kg" data-step="0.5">
+                <img src="images/suratebi/qarxnuli-yveli.png" alt="ქარხნული ყველი">
+                <h3>ქარხნული ყველი</h3>
+                <div class="price">22 ლარი / კგ</div>
+                <p class="cart-hint">შეგიძლიათ შეცვალოთ კალათაში</p>
+                <button class="add-btn">კალათაში დამატება</button>
+            </div>
+
+            <!-- <div class="product-card" data-name="იმერული ყველი (ჭყინტი)" data-price="15" data-weight="1">
+                <img src="images/suratebi/imerulii.webp" alt="იმერული ყველი (ჭყინტი)">
+                <h3>ჭყინტი უმარილო ყველი (1კგ)</h3>
+                <div class="price">15 ლარი</div>
+                <button class="add-btn">კალათაში დამატება</button>
+            </div> -->
+
+            <div class="product-card" data-name="ბურატა" data-price="6" data-weight="0.2">
+                <img src="images/suratebi/burata.webp" alt="ბურატა">
+                <h3>ბურატა (1 ცალი)</h3>
+                <div class="price">6 ლარი</div>
+                <button class="add-btn">კალათაში დამატება</button>
+            </div>
+
+            <div class="product-card" data-name="მოცარელა" data-price="26" data-weight="1" data-pricing="per-kg" data-step="0.5">
+                <img src="images/suratebi/mozarella.webp" alt="მოცარელა">
+                <h3>მოცარელა</h3>
+                <div class="price">26 ლარი / კგ</div>
+                <p class="cart-hint">შეგიძლიათ შეცვალოთ კალათაში</p>
+                <button class="add-btn">კალათაში დამატება</button>
+            </div>
+            <div class="product-card" data-name="ხაჭო 14ლ" data-price="14" data-weight="1" data-pricing="per-kg" data-step="0.5">
+                <img src="images/suratebi/xacho.png" alt="ხაჭო">
+                <h3>ხაჭო</h3>
+                <div class="price">14 ლარი / კგ</div>
+                <p class="cart-hint">შეგიძლიათ შეცვალოთ კალათაში</p>
+                <button class="add-btn">კალათაში დამატება</button>
+            </div>
+
+            <div class="product-card" data-name="სტრატაჩელა" data-price="32" data-weight="1" data-pricing="per-kg" data-step="0.5">
+                <img src="images/suratebi/stratachela.webp" alt="სტრატაჩელა">
+                <h3>სტრაჩეტელა</h3>
+                <div class="price">32 ლარი / კგ</div>
+                <p class="cart-hint">შეგიძლიათ შეცვალოთ კალათაში</p>
+                <button class="add-btn">კალათაში დამატება</button>
+            </div>
+
+            <div class="product-card" data-name="სულგუნი (შებოლილი)" data-price="25" data-weight="1" data-pricing="per-kg" data-step="0.5">
+                <img src="images/suratebi/shebolili.png" alt="სულგუნი (შებოლილი)">
+                <h3>სულგუნი შებოლილი</h3>
+                <div class="price">25 ლარი / კგ</div>
+                <p class="cart-hint">შეგიძლიათ შეცვალოთ კალათაში</p>
+                <p class="head-weight">წონა: მთელი თავი ≈ 2კგ ±200გრ</p>
+                <button class="add-btn">კალათაში დამატება</button>
+            </div>
+
+            <div class="product-card" data-name="ნაღების კარაქი 400გრ" data-price="15" data-weight="0.4">
+                <img src="images/suratebi/5kargi400g.jpg" alt="ნაღების კარაქი 400გრ">
+                <h3>ნაღების კარაქი 400გრ</h3>
+                <div class="price">15 ლარი</div>
+                <button class="add-btn">კალათაში დამატება</button>
+            </div>
+
+            <div class="product-card" data-name="ერბო" data-price="25" data-weight="0.5">
+                <img src="images/suratebi/erbo.webp" alt="ერბო">
+                <h3>ერბო (0.5კგ ქილა)</h3>
+                <div class="price">25 ლარი</div>
+                <button class="add-btn">კალათაში დამატება</button>
+            </div>
+
+            <div class="product-card" data-name="არაჟანი 350გრ" data-price="5" data-weight="0.4">
+                <img src="images/suratebi/6arajani350g.jpg" alt="არაჟანი 350გრ">
+                <h3>არაჟანი 400გრ</h3>
+                <div class="price">5 ლარი</div>
+                <button class="add-btn">კალათაში დამატება</button>
+            </div>
+
+            <div class="product-card" data-name="მაწონი 500გრ" data-price="4" data-weight="0.5">
+                <img src="images/suratebi/7matsvoni350g.jpg" alt="მაწონი 500გრ">
+                <h3>მაწონი ქილით 500გრ</h3>
+                <div class="price">4 ლარი</div>
+                <button class="add-btn">კალათაში დამატება</button>
+            </div>
+
+            <div class="product-card" data-name="მაწონი 400გრ" data-price="2.5" data-weight="0.4">
+                <img src="images/suratebi/mawoni.webp" alt="მაწონი 400გრ">
+                <h3>მაწონი ჭიქა 400გრ</h3>
+                <div class="price">2.5 ლარი</div>
+                <button class="add-btn">კალათაში დამატება</button>
+            </div>
+
+            <div class="product-card" data-name="იოგურტი 350გრ" data-price="6" data-weight="0.4">
+                <img src="images/suratebi/8yogurt350g.jpg" alt="იოგურტი 350გრ">
+                <h3>იოგურტი 400გრ</h3>
+                <div class="price">6 ლარი</div>
+                <button class="add-btn">კალათაში დამატება</button>
+            </div>
+
+            <div class="product-card" data-name="სულგუნის ჩხირები 200გრ" data-price="6" data-weight="0.2">
+                <img src="images/suratebi/10sulguni_sticks.jpg" alt="სულგუნის ჩხირები">
+                <h3>სულგუნის ჩხირები 200გრ</h3>
+                <div class="price">6 ლარი</div>
+                <button class="add-btn">კალათაში დამატება</button>
+            </div>
+
+            <div class="product-card" data-name="ყველი ჩეჩილი 1კგ" data-price="24" data-weight="1" data-pricing="per-kg" data-step="0.5">
+                <img src="images/suratebi/chechili.png" alt="ყველი ჩეჩილი">
+                <h3>ყველი ჩეჩილი</h3>
+                <div class="price">24 ლარი / კგ</div>
+                <p class="cart-hint">შეგიძლიათ შეცვალოთ კალათაში</p>
+                <button class="add-btn">კალათაში დამატება</button>
+            </div>
+
+            <div class="product-card" data-name="კრემ-ყველი 250 გრ" data-price="6" data-weight="0.25">
+                <img src="images/suratebi/krem-yveli.png" alt="კრემ-ყველი 250 გრ">
+                <h3>კრემ-ყველი 250 გრ</h3>
+                <div class="price">6 ლარი</div>
+                <button class="add-btn">კალათაში დამატება</button>
+            </div>
+
+
+        </div>
+    </div>
+
+<!-- FLOATING CART FAB -->
+<a href="basket.html" id="floatingCart">
+    <img src="images/basket-new.png" alt="კალათა">
+    <span id="floatingCartCount">0</span>
+</a>
+
+<script src="js/cart.js"></script>
+<script>
+/* MOBILE MENU */
+function toggleMenu() {
+  document.getElementById("menuList").classList.toggle("active");
+}
+
+/* GET CART */
+function getCart() {
+  try {
+    return JSON.parse(localStorage.getItem("cart")) || [];
+  } catch (e) {
+    return [];
+  }
+}
+
+/* SAVE CART */
+function saveCart(cart) {
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCounter();
+}
+
+/* ADD TO CART (uses visible H3 text = always correct) */
+function addToCartFromCard(card) {
+  const visibleName = (card.querySelector("h3")?.textContent || "").trim();
+  const price = Number(card.dataset.price) || 0;
+
+  if (!visibleName || price <= 0) {
+    showToast("პროდუქტის დამატება ვერ მოხერხდა.", true);
+    return;
+  }
+
+  const cart = getCart();
+  const newItem = CartUtils.buildCartItemFromCard(card, visibleName, price);
+  CartUtils.mergeCartItem(cart, newItem);
+
+  saveCart(cart);
+  showToast("პროდუქტი დაემატა კალათაში ✅");
+}
+
+/* TOAST */
+function showToast(msg, isError) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.className = isError ? "error" : "";
+  // force reflow so re-triggering works
+  void t.offsetWidth;
+  t.classList.add("show");
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove("show"), 2500);
+}
+
+/* UPDATE COUNTER FOR BOTH MOBILE & DESKTOP */
+function updateCounter() {
+  const cart = getCart();
+  const count = CartUtils.getCartCount(cart);
+
+  const mob = document.getElementById("basketCounterMobile");
+  if (mob) mob.textContent = count;
+
+  const desk = document.getElementById("basketCounterDesktop");
+  if (desk) desk.textContent = count;
+
+  const fab = document.getElementById("floatingCart");
+  const fabCount = document.getElementById("floatingCartCount");
+  if (fab) {
+    fab.style.display = count > 0 ? "block" : "none";
+  }
+  if (fabCount) fabCount.textContent = count;
+}
+
+updateCounter();
+
+/* BUTTON EVENTS */
+document.querySelectorAll(".product-card").forEach(card => {
+  const btn = card.querySelector(".add-btn");
+  if (!btn) return;
+  btn.addEventListener("click", () => addToCartFromCard(card));
+});
+</script>
+</body>
+</html>

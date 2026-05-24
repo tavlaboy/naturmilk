@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ka">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png" />
+
+    <title>შეკვეთის დადასტურება – Natur Milk</title>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f5faf7;
+        padding: 0;
+        margin: 0;
+      }
+      .email-wrapper {
+        max-width: 560px;
+        background: #ffffff;
+        margin: 30px auto;
+        padding: 25px;
+        border-radius: 12px;
+        border: 1px solid #e8f3ec;
+      }
+      .header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .header img {
+        width: 90px;
+      }
+      .title {
+        color: #2f7d4b;
+        font-size: 22px;
+        margin-top: 10px;
+      }
+      .section-title {
+        font-size: 17px;
+        margin-top: 25px;
+        color: #2f7d4b;
+        border-bottom: 1px solid #e6eee8;
+        padding-bottom: 5px;
+      }
+      .item {
+        margin: 8px 0;
+        font-size: 15px;
+      }
+      .total {
+        background: #f2faf5;
+        padding: 14px;
+        border-radius: 10px;
+        margin-top: 15px;
+        border: 1px solid #d9eee1;
+        font-size: 17px;
+        color: #2f7d4b;
+      }
+      .footer {
+        margin-top: 30px;
+        text-align: center;
+        font-size: 13px;
+        color: #8c8c8c;
+      }
+      .free {
+        color: #3CB371;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="email-wrapper">
+
+      <div class="header">
+        <img src="https://i.imgur.com/2QK5JFF.png" alt="Natur Milk Logo">
+        <h2 class="title">შეკვეთა დადასტურდა!</h2>
+      </div>
+
+      <p style="font-size:15px;">
+        გამარჯობა, <strong>{{name}}</strong>!  
+        თქვენი შეკვეთა მიღებულია და მუშავდება.  
+        დეტალები ქვემოთ:
+      </p>
+
+      <!-- ORDER ITEMS -->
+      <h3 class="section-title">შეკვეთის დეტალები</h3>
+
+      {{items}}
+
+      <!-- DELIVERY -->
+      <h3 class="section-title">მიწოდება</h3>
+
+      <p class="item">მისამართი: <strong>{{address}}</strong></p>
+      <p class="item">დარეკვის ნომერი: <strong>{{phone}}</strong></p>
+
+      <p class="item">
+        მიწოდების ფასი:
+        <strong>
+          {{delivery_price}}
+        </strong>
+      </p>
+
+      <!-- TOTAL -->
+      <div class="total">
+        ჯამი: <strong>{{total}}</strong> ₾
+      </div>
+
+      <p class="footer">
+        Natur Milk<br>
+        მადლობა, რომ ჩვენი ოჯახური ფერმა აირჩიეთ 💚
+      </p>
+
+    </div>
+  </body>
+</html>
