@@ -10,13 +10,31 @@ var SHEET_EDIT_URL = 'https://docs.google.com/spreadsheets/d/18CJQS22tnPF80q4CId
 var LOGO_URL = 'https://naturmilk.shop/images/logo.png';
 var ORDERS_SHEET_NAME = 'Orders';
 
+// Scan-friendly: status & phone first, items multiline, newest row at top (insert row 2)
 var HEADERS = [
-  'Order ID', 'Timestamp', 'Status', 'Name', 'Email', 'Phone', 'Address', 'Comment',
-  'Delivery Type', 'Items Summary', 'Items JSON', 'Item Count', 'Subtotal',
-  'Delivery Fee', 'Total', 'Token', 'Action At', 'Action By'
+  'Status', 'Date', 'Order ID', 'Phone', 'Name', 'Address', 'Delivery',
+  'Items', 'Total ₾', 'Products ₾', 'Delivery ₾', 'Email', 'Comment', 'Updated', 'Token'
 ];
 
 var COL = {
+  STATUS: 1,
+  TIMESTAMP: 2,
+  ORDER_ID: 3,
+  PHONE: 4,
+  NAME: 5,
+  ADDRESS: 6,
+  DELIVERY_TYPE: 7,
+  ITEMS: 8,
+  TOTAL: 9,
+  SUBTOTAL: 10,
+  DELIVERY_FEE: 11,
+  EMAIL: 12,
+  COMMENT: 13,
+  ACTION_AT: 14,
+  TOKEN: 15
+};
+
+var OLD_COL = {
   ORDER_ID: 1,
   TIMESTAMP: 2,
   STATUS: 3,
@@ -28,13 +46,11 @@ var COL = {
   DELIVERY_TYPE: 9,
   ITEMS_SUMMARY: 10,
   ITEMS_JSON: 11,
-  ITEM_COUNT: 12,
   SUBTOTAL: 13,
   DELIVERY_FEE: 14,
   TOTAL: 15,
   TOKEN: 16,
-  ACTION_AT: 17,
-  ACTION_BY: 18
+  ACTION_AT: 17
 };
 
 var ACTION_TO_STATUS = {
@@ -76,19 +92,96 @@ function getOrdersSheet() {
 
 // ─── Setup (run once from editor optional) ────────────────────────────────────
 
+function isOldSheetLayout(sheet) {
+  return String(sheet.getRange(1, 1).getValue() || '').trim() === 'Order ID';
+}
+
+function isNewSheetLayout(sheet) {
+  return String(sheet.getRange(1, 1).getValue() || '').trim() === 'Status';
+}
+
 function setupSheetIfNeeded() {
   var sheet = getOrdersSheet();
+  if (isOldSheetLayout(sheet)) return;
   if (sheet.getLastRow() === 0 || !sheet.getRange(1, 1).getValue()) {
-    sheet.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]);
-    sheet.getRange(1, 1, 1, HEADERS.length)
-      .setFontWeight('bold')
-      .setBackground('#F7FFFA');
-    sheet.setFrozenRows(1);
+    writeSheetHeaders(sheet);
+  } else if (!isNewSheetLayout(sheet)) {
+    writeSheetHeaders(sheet);
   }
 }
 
+function writeSheetHeaders(sheet) {
+  sheet.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]);
+  applySheetFormatting(sheet);
+}
+
+function applySheetFormatting(sheet) {
+  var header = sheet.getRange(1, 1, 1, HEADERS.length);
+  header.setFontWeight('bold').setBackground('#065924').setFontColor('#ffffff');
+  sheet.setFrozenRows(1);
+
+  sheet.setColumnWidth(COL.STATUS, 110);
+  sheet.setColumnWidth(COL.TIMESTAMP, 150);
+  sheet.setColumnWidth(COL.ORDER_ID, 175);
+  sheet.setColumnWidth(COL.PHONE, 120);
+  sheet.setColumnWidth(COL.NAME, 140);
+  sheet.setColumnWidth(COL.ADDRESS, 220);
+  sheet.setColumnWidth(COL.DELIVERY_TYPE, 160);
+  sheet.setColumnWidth(COL.ITEMS, 320);
+  sheet.setColumnWidth(COL.TOTAL, 80);
+  sheet.setColumnWidth(COL.SUBTOTAL, 90);
+  sheet.setColumnWidth(COL.DELIVERY_FEE, 80);
+  sheet.setColumnWidth(COL.EMAIL, 180);
+  sheet.setColumnWidth(COL.COMMENT, 160);
+  sheet.setColumnWidth(COL.ACTION_AT, 150);
+  sheet.setColumnWidth(COL.TOKEN, 80);
+
+  var lastRow = Math.max(sheet.getLastRow(), 2);
+  sheet.getRange(2, COL.ITEMS, lastRow, COL.ITEMS).setWrap(true).setVerticalAlignment('top');
+  sheet.getRange(2, COL.PHONE, lastRow, COL.PHONE).setNumberFormat('@');
+  sheet.getRange(2, COL.TIMESTAMP, lastRow, COL.TIMESTAMP).setNumberFormat('yyyy-mm-dd hh:mm');
+  sheet.getRange(2, 1, lastRow, HEADERS.length).setVerticalAlignment('top');
+
+  applyStatusFormatting(sheet, lastRow);
+}
+
+function applyStatusFormatting(sheet, lastRow) {
+  var range = sheet.getRange(2, COL.STATUS, Math.max(lastRow, 2), COL.STATUS);
+  var rules = [
+    SpreadsheetApp.newConditionalFormatRule()
+      .whenTextEqualTo('Pending')
+      .setBackground('#fff3cd')
+      .setFontColor('#856404')
+      .setRanges([range])
+      .build(),
+    SpreadsheetApp.newConditionalFormatRule()
+      .whenTextEqualTo('Confirmed')
+      .setBackground('#d4edda')
+      .setFontColor('#155724')
+      .setRanges([range])
+      .build(),
+    SpreadsheetApp.newConditionalFormatRule()
+      .whenTextEqualTo('On Hold')
+      .setBackground('#ffe8cc')
+      .setFontColor('#b45309')
+      .setRanges([range])
+      .build(),
+    SpreadsheetApp.newConditionalFormatRule()
+      .whenTextEqualTo('Declined')
+      .setBackground('#f8d7da')
+      .setFontColor('#721c24')
+      .setRanges([range])
+      .build()
+  ];
+  sheet.setConditionalFormatRules(rules);
+}
+
 function setupSheet() {
-  setupSheetIfNeeded();
+  var sheet = getOrdersSheet();
+  if (isOldSheetLayout(sheet)) {
+    throw new Error('Old layout detected. Run rebuildOrdersSheet() once (archives old tab).');
+  }
+  writeSheetHeaders(sheet);
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -125,6 +218,55 @@ function formatItemsSummary(items) {
   return items.map(function(item) {
     return formatItemLabel(item) + ' — ' + formatMoney(getLineAmount(item)) + '₾';
   }).join('; ');
+}
+
+/** One item per line in the Sheet cell (wrap text) — easy to scan */
+function formatItemsForSheet(items) {
+  return items.map(function(item) {
+    return '• ' + formatItemLabel(item) + ' — ' + formatMoney(getLineAmount(item)) + ' ₾';
+  }).join('\n');
+}
+
+function formatPhone(phone) {
+  if (phone === null || phone === undefined || phone === '') return '';
+  return String(phone).replace(/\.0$/, '').trim();
+}
+
+function formatItemsCellFromLegacy(summary, jsonRaw) {
+  if (jsonRaw) {
+    try {
+      var items = JSON.parse(jsonRaw);
+      if (items && items.length) return formatItemsForSheet(items);
+    } catch (e) {}
+  }
+  if (!summary) return '';
+  return String(summary).split(';').map(function(part) {
+    return '• ' + String(part).trim();
+  }).join('\n');
+}
+
+function buildOrderRowValues(data, orderId, token, status, timestamp, actionAt) {
+  var items = data.items || [];
+  var delivery = Number(data.delivery) || 0;
+  var total = Number(data.total) || 0;
+  var subtotal = formatMoney(total - delivery);
+  return [
+    status || 'Pending',
+    timestamp,
+    orderId,
+    formatPhone(data.phone),
+    data.name || '',
+    data.address || '',
+    data.deliveryType || '',
+    formatItemsForSheet(items),
+    formatMoney(total),
+    subtotal,
+    delivery,
+    data.email || '',
+    data.comment || '',
+    actionAt || '',
+    token
+  ];
 }
 
 function formatItemRowsHtml(items, useQtyLabel) {
@@ -181,7 +323,8 @@ function buildActionUrl(action, orderId, token) {
 function findOrderRow(sheet, orderId) {
   var lastRow = sheet.getLastRow();
   if (lastRow < 2) return -1;
-  var ids = sheet.getRange(2, COL.ORDER_ID, lastRow, 1).getValues();
+  var idCol = isNewSheetLayout(sheet) ? COL.ORDER_ID : OLD_COL.ORDER_ID;
+  var ids = sheet.getRange(2, idCol, lastRow, 1).getValues();
   for (var i = 0; i < ids.length; i++) {
     if (String(ids[i][0]) === String(orderId)) {
       return i + 2;
@@ -193,33 +336,16 @@ function findOrderRow(sheet, orderId) {
 function appendOrderRow(data, orderId, token) {
   setupSheetIfNeeded();
   var sheet = getOrdersSheet();
-  var items = data.items || [];
-  var delivery = Number(data.delivery) || 0;
-  var total = Number(data.total) || 0;
-  var subtotal = formatMoney(total - delivery);
+  if (isOldSheetLayout(sheet)) {
+    throw new Error('Sheet still uses old columns. Run rebuildOrdersSheet() from the script editor.');
+  }
   var tz = Session.getScriptTimeZone() || 'Asia/Tbilisi';
   var timestamp = Utilities.formatDate(new Date(), tz, 'yyyy-MM-dd HH:mm:ss');
+  var rowValues = buildOrderRowValues(data, orderId, token, 'Pending', timestamp, '');
 
-  sheet.appendRow([
-    orderId,
-    timestamp,
-    'Pending',
-    data.name || '',
-    data.email || '',
-    data.phone || '',
-    data.address || '',
-    data.comment || '',
-    data.deliveryType || '',
-    formatItemsSummary(items),
-    JSON.stringify(items),
-    items.length,
-    subtotal,
-    delivery,
-    total,
-    token,
-    '',
-    ''
-  ]);
+  sheet.insertRowBefore(2);
+  sheet.getRange(2, 1, 1, HEADERS.length).setValues([rowValues]);
+  applySheetFormatting(sheet);
 
   return timestamp;
 }
@@ -227,10 +353,73 @@ function appendOrderRow(data, orderId, token) {
 function updateOrderStatus(sheet, row, status) {
   var tz = Session.getScriptTimeZone() || 'Asia/Tbilisi';
   var actionAt = Utilities.formatDate(new Date(), tz, 'yyyy-MM-dd HH:mm:ss');
-  sheet.getRange(row, COL.STATUS).setValue(status);
-  sheet.getRange(row, COL.ACTION_AT).setValue(actionAt);
-  sheet.getRange(row, COL.ACTION_BY).setValue('email-link');
+  var statusCol = isNewSheetLayout(sheet) ? COL.STATUS : OLD_COL.STATUS;
+  var actionCol = isNewSheetLayout(sheet) ? COL.ACTION_AT : OLD_COL.ACTION_AT;
+  sheet.getRange(row, statusCol).setValue(status);
+  sheet.getRange(row, actionCol).setValue(actionAt);
+  if (isNewSheetLayout(sheet)) {
+    applyStatusFormatting(sheet, sheet.getLastRow());
+  }
   return actionAt;
+}
+
+/**
+ * One-time: archive current tab, create scan-friendly Orders sheet, migrate rows.
+ * Run from Apps Script editor: rebuildOrdersSheet
+ */
+function rebuildOrdersSheet() {
+  var ss = getSpreadsheet();
+  var oldSheet = getOrdersSheet();
+  var archiveName = 'Orders Archive ' + Utilities.formatDate(new Date(), Session.getScriptTimeZone() || 'Asia/Tbilisi', 'yyyy-MM-dd');
+  if (ss.getSheetByName(archiveName)) {
+    archiveName = archiveName + ' ' + Utilities.getUuid().slice(0, 4);
+  }
+  oldSheet.setName(archiveName);
+
+  var newSheet = ss.insertSheet(ORDERS_SHEET_NAME, 0);
+  writeSheetHeaders(newSheet);
+
+  var lastRow = oldSheet.getLastRow();
+  if (lastRow < 2) return;
+
+  var migrated = [];
+  var oldHeader = String(oldSheet.getRange(1, 1).getValue() || '');
+  var useOldMap = oldHeader === 'Order ID';
+
+  for (var r = 2; r <= lastRow; r++) {
+    var row = oldSheet.getRange(r, 1, r, oldSheet.getLastColumn()).getValues()[0];
+    if (!row[0] && !row[2]) continue;
+
+    if (useOldMap) {
+      migrated.push([
+        row[OLD_COL.STATUS - 1] || 'Pending',
+        row[OLD_COL.TIMESTAMP - 1],
+        row[OLD_COL.ORDER_ID - 1],
+        formatPhone(row[OLD_COL.PHONE - 1]),
+        row[OLD_COL.NAME - 1],
+        row[OLD_COL.ADDRESS - 1],
+        row[OLD_COL.DELIVERY_TYPE - 1],
+        formatItemsCellFromLegacy(row[OLD_COL.ITEMS_SUMMARY - 1], row[OLD_COL.ITEMS_JSON - 1]),
+        row[OLD_COL.TOTAL - 1],
+        row[OLD_COL.SUBTOTAL - 1],
+        row[OLD_COL.DELIVERY_FEE - 1],
+        row[OLD_COL.EMAIL - 1],
+        row[OLD_COL.COMMENT - 1],
+        row[OLD_COL.ACTION_AT - 1] || '',
+        row[OLD_COL.TOKEN - 1]
+      ]);
+    }
+  }
+
+  if (migrated.length) {
+    migrated.sort(function(a, b) {
+      return String(b[1]).localeCompare(String(a[1]));
+    });
+    newSheet.getRange(2, 1, migrated.length, HEADERS.length).setValues(migrated);
+  }
+
+  applySheetFormatting(newSheet);
+  Logger.log('Rebuilt Orders. Archived tab: ' + archiveName + '. Migrated rows: ' + migrated.length);
 }
 
 // ─── Shared email blocks ──────────────────────────────────────────────────────
@@ -345,7 +534,7 @@ function buildOwnerHtml(data, orderId, timestamp, token) {
   '</div>';
 }
 
-// ─── Customer email (same copy/structure as before; line totals fixed) ─────────
+// ─── Customer email (same copy/structure; per-kg shows qtyLabel like owner email) ─
 
 function buildCustomerHtml(data) {
   var customerName = escapeHtml(data.name || 'მომხმარებელი');
@@ -357,7 +546,7 @@ function buildCustomerHtml(data) {
   var deliveryText = delivery === 0 ? 'უფასო' : delivery + ' ₾';
   var isDelivery = delivery > 0;
 
-  var itemRows = formatItemRowsHtml(items, false);
+  var itemRows = formatItemRowsHtml(items, true);
   var itemsTable = buildItemsTable(itemRows);
   var deliveryRow = buildDeliveryRow(isDelivery, deliveryText);
 
@@ -484,7 +673,7 @@ function doPost(e) {
     var timestamp = appendOrderRow(data, orderId, token);
 
     var itemLines = formatItemLinesPlain(items, true);
-    var itemLinesCustomer = formatItemLinesPlain(items, false);
+    var itemLinesCustomer = formatItemLinesPlain(items, true);
 
     var ownerHtml = buildOwnerHtml(data, orderId, timestamp, token);
     var ownerPlain =
@@ -525,4 +714,9 @@ function doPost(e) {
       .createTextOutput(JSON.stringify({ success: false, error: err.message }))
       .setMimeType(ContentService.MimeType.JSON);
   }
+}
+
+/** Run once: View → Logs, copy value → Script property ACTION_SECRET */
+function makeSecret() {
+  Logger.log(Utilities.getUuid() + Utilities.getUuid());
 }
