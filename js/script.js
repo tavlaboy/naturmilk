@@ -8,108 +8,49 @@ document.addEventListener("DOMContentLoaded", () => {
   const track2 = document.getElementById("scroller-track-2");
 
   if (track && track2) {
-    window.addEventListener("scroll", () => {
-      const scrollY = window.scrollY || 0;
-      track.style.transform = `translateX(${-scrollY * 0.5}px)`;
-      track2.style.transform = `translateX(${scrollY * 0.5}px)`;
+    const updateScroller = (scrollY) => {
+      track.style.transform = `translate3d(${-scrollY * 0.5}px, 0, 0)`;
+      track2.style.transform = `translate3d(${scrollY * 0.5}px, 0, 0)`;
+    };
+
+    window.addEventListener("lenis-scroll", (e) => {
+      updateScroller(e.detail.scroll);
     });
+
+    window.addEventListener("scroll", () => {
+      updateScroller(window.scrollY || 0);
+    }, { passive: true });
+
+    updateScroller(window.scrollY || 0);
   }
 
-  // --- Testimonials slider (only if exists)
-  const slider = document.getElementById("testimonial-slider");
-  if (slider) {
-    const trackEl = slider.querySelector("[data-track]");
-    const prev = slider.querySelector("[data-prev]");
-    const next = slider.querySelector("[data-next]");
+  // --- Reviews marquee (only if exists)
+  const reviewsSection = document.getElementById("testimonial-slider");
+  if (reviewsSection) {
+    const track = reviewsSection.querySelector("[data-marquee-track]");
+    const group = track?.querySelector(".reviews__group");
 
-    if (trackEl && prev && next) {
-      const slides = Array.from(trackEl.children);
+    if (track && group) {
+      const MARQUEE_SPEED = 38; // px per second — calm but steady
 
-      let index = 0;
-      let perView = getPerView();
-      let gapPx = getGap();
-      let slideWidth = 0;
-      let maxIndex = Math.max(0, slides.length - perView);
+      const clone = group.cloneNode(true);
+      clone.setAttribute("aria-hidden", "true");
+      track.appendChild(clone);
 
-      function getPerView() {
-        const val = getComputedStyle(document.documentElement)
-          .getPropertyValue("--per-view")
-          .trim();
-        const n = parseInt(val, 10);
-        return Number.isFinite(n) && n > 0 ? n : 1;
+      const setDuration = () => {
+        const width = group.getBoundingClientRect().width;
+        if (width <= 0) return;
+        const duration = width / MARQUEE_SPEED;
+        track.style.setProperty("--reviews-marquee-duration", `${duration}s`);
+      };
+
+      if (document.fonts?.ready) {
+        document.fonts.ready.then(setDuration);
+      } else {
+        setDuration();
       }
 
-      function getGap() {
-        const g = getComputedStyle(trackEl).gap || "0px";
-        const n = parseFloat(g);
-        return Number.isFinite(n) ? n : 0;
-      }
-
-      function layout() {
-        perView = getPerView();
-        gapPx = getGap();
-
-        const trackWidth = trackEl.clientWidth || 0;
-        if (trackWidth <= 0) return;
-
-        slideWidth = (trackWidth - gapPx * (perView - 1)) / perView;
-        slides.forEach((s) => (s.style.width = `${slideWidth}px`));
-
-        maxIndex = Math.max(0, slides.length - perView);
-        index = Math.min(index, maxIndex);
-        move();
-        updateButtons();
-      }
-
-      function move() {
-        const offset = index * (slideWidth + gapPx);
-        trackEl.style.transform = `translate3d(${-offset}px,0,0)`;
-      }
-
-      function updateButtons() {
-        prev.disabled = index === 0;
-        next.disabled = index === maxIndex;
-      }
-
-      prev.addEventListener("click", () => {
-        if (index > 0) {
-          index--;
-          move();
-          updateButtons();
-        }
-      });
-
-      next.addEventListener("click", () => {
-        if (index < maxIndex) {
-          index++;
-          move();
-          updateButtons();
-        }
-      });
-
-      let startX = null;
-      trackEl.addEventListener(
-        "touchstart",
-        (e) => {
-          startX = e.touches[0].clientX;
-        },
-        { passive: true }
-      );
-
-      trackEl.addEventListener("touchend", (e) => {
-        if (startX == null) return;
-        const dx = e.changedTouches[0].clientX - startX;
-        if (Math.abs(dx) > 40) {
-          if (dx < 0 && index < maxIndex) index++;
-          else if (dx > 0 && index > 0) index--;
-          move();
-          updateButtons();
-        }
-        startX = null;
-      });
-
-      window.addEventListener("resize", layout);
-      layout();
+      window.addEventListener("resize", setDuration);
     }
   }
 

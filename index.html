@@ -4,7 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./js/vendor/lenis.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Headland+One&display=swap" rel="stylesheet" />
     <title data-field="footerBrand">Natur Milk</title>
+
+    <!-- Hero media: start fetching before body paints -->
+    <link rel="preload" href="./images/main-img.jpeg" as="image" fetchpriority="high" />
+    <link rel="preload" href="./images/hero-naturmilk-720p.mp4" as="video" type="video/mp4" fetchpriority="high" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon.png" />
@@ -23,8 +31,10 @@
 
   <body class="body">
     <!-- Navbar -->
-    <header class="site-nav" id="siteNav">
+    <header class="site-nav site-nav--hero" id="siteNav">
       <div class="nav-inner">
+        <a href="/" class="mobile-brand" data-field="footerBrand">Natur Milk</a>
+
         <button class="nav-toggle" aria-expanded="false" aria-label="მენიუს გახსნა">
           <!-- hamburger -->
           <svg class="icon icon-bars" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
@@ -37,10 +47,21 @@
         </button>
 
         <a href="/" class="brand" id="brand" aria-label="Natur Milk">
-          <!-- Single slot. The bridge will inject a COMBINED SVG (icon + text) here. -->
+          <svg class="brand-shoulders" aria-hidden="true" viewBox="0 0 164 164">
+            <path
+              class="brand-shoulder brand-shoulder--left"
+              fill="currentColor"
+              d="M 0 82 A 82 82 0 0 1 3.3 59.1 A 18 18 0 0 1 20 82 L 0 82 Z"
+            />
+            <path
+              class="brand-shoulder brand-shoulder--right"
+              fill="currentColor"
+              d="M 164 82 A 82 82 0 0 0 160.7 59.1 A 18 18 0 0 0 144 82 L 164 82 Z"
+            />
+          </svg>
           <img
             class="brandmark"
-            src="./images/logo.png"
+            src="./images/new-header-logo.png"
             alt="Natur Milk ლოგო"
           />
           <span class="brandmark" data-field="siteLogoHtml" aria-hidden="true"></span>
@@ -64,15 +85,23 @@
       </div>
 
       <!-- Mobile -->
+      <div class="mobile-backdrop" id="mobileBackdrop" aria-hidden="true"></div>
       <div class="mobile-panel" id="mobilePanel" role="dialog" aria-modal="true" aria-label="საიტის მენიუ">
-        <nav>
-          <ul class="mobile-list">
-            <li><a href="#shop" data-field="navItem[0]">მაღაზია</a></li>
-            <li><a href="#about" data-field="navItem[1]">ჩვენს შესახებ</a></li>
-            <li><a href="#blog" data-field="navItem[2]">ბლოგი</a></li>
-            <li><a href="productPage.html">ყველა პროდუქტი</a></li>
-          </ul>
-        </nav>
+        <div class="mobile-panel__inner">
+          <nav class="mobile-nav" aria-label="მობილური მენიუ">
+            <ul class="mobile-list">
+              <li><a href="#shop" data-field="navItem[0]">მაღაზია</a></li>
+              <li><a href="#about" data-field="navItem[1]">ჩვენს შესახებ</a></li>
+              <li><a href="#blog" data-field="navItem[2]">ბლოგი</a></li>
+              <li><a href="productPage.html">ყველა პროდუქტი</a></li>
+            </ul>
+          </nav>
+          <div class="mobile-panel__footer">
+            <a href="productPage.html" class="header-cta mobile-header-cta" data-field="searchLabel" aria-label="შეიძინე ონლაინ">
+              <span class="button_top">შეიძინე ონლაინ</span>
+            </a>
+          </div>
+        </div>
       </div>
     </header>
 
@@ -83,13 +112,19 @@
           <div class="hero-frame">
             <video
               class="hero-img"
-              src="./images/naturalmilk-hero.mp4"
               autoplay
               muted
               loop
               playsinline
+              preload="metadata"
+              fetchpriority="high"
               poster="./images/main-img.jpeg"
+              width="1280"
+              height="720"
+              disablepictureinpicture
+              disableremoteplayback
             >
+              <source src="./images/hero-naturmilk-720p.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
             <div class="hero-content">
@@ -102,9 +137,16 @@
           </div>
 
           <button class="scroll-btn" aria-label="დაწიე ქვემოთ">
-            <svg viewBox="0 0 24 24" width="40" height="40" aria-hidden="true">
-              <path d="M12 5v14m0 0l6-6m-6 6l-6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
+            <span class="scroll-btn__viewport" aria-hidden="true">
+              <span class="scroll-btn__track">
+                <svg class="scroll-btn__arrow" viewBox="0 3 24 30" fill="none">
+                  <path d="M12 6v24M6 24l6 6 6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <svg class="scroll-btn__arrow" viewBox="0 3 24 30" fill="none">
+                  <path d="M12 6v24M6 24l6 6 6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+            </span>
           </button>
         </div>
       </div>
@@ -128,7 +170,7 @@
         <!-- Left column -->
         <div class="bestsellers__intro">
           <!-- plain text binding (no *Html) -->
-          <h2 class="bestsellers__title" data-field="bestsellersTitle">ჩვენი<br /> პროდუქტები</h2>
+          <h2 class="bestsellers__title" data-field="bestsellersTitle"><br /> პროდუქტები</h2>
           <!-- Arrow stays local, not data-bound -->
           <span class="icon-arrow" aria-hidden="true"></span>
         </div>
@@ -310,88 +352,97 @@
       </div>
     </section>
 
-    <!-- VALUES -->
-    <section class="values">
-      <div class="values__wrap">
-        <ul class="values__grid">
-          <li class="value">
-            <span class="value__icon" aria-hidden="true"></span>
-            <h3 class="value__title" data-field="valueTitle[0]">ნატურალური ფერმის რძე</h3>
-            <p class="value__copy" data-field="valueCopy[0]">სველი ბალახით გამოკვებილი ძროხები და არანაირი რძის ფხვნილი — მხოლოდ ის, რასაც ბოთლში ხედავ.</p>
-          </li>
+    <!-- Visit us — farm sign -->
+    <section class="visit-sign" id="visit">
+      <div class="visit-sign__wrap">
+        <header class="visit-sign__header">
+          <h2 class="visit-sign__title">გვესტუმრეთ ადგილზე</h2>
+        </header>
 
-          <li class="value">
-            <span class="value__icon" aria-hidden="true"></span>
-            <h3 class="value__title" data-field="valueTitle[1]">ხელით დამზადებული ყველი</h3>
-            <p class="value__copy" data-field="valueCopy[1]">ოჯახური რეცეპტები, დამწიფების კონტროლი და ყოველდღიური დეგუსტაცია, რომ გემო ყოველთვის ერთნაირად კარგი იყოს.</p>
-          </li>
-
-          <li class="value">
-            <span class="value__icon" aria-hidden="true"></span>
-            <h3 class="value__title" data-field="valueTitle[2]">პლასტმასის გარეშე<br />შეფუთვა</h3>
-            <p class="value__copy" data-field="valueCopy[2]">მინიმალური პლასტმასი და გადამუშავებადი მასალები, რათა ფერმასაც და ბუნებასაც ერთნაირად ვუფრთხილდეთ.</p>
-          </li>
-
-          <li class="value">
-            <span class="value__icon" aria-hidden="true"></span>
-            <p class="value__copy" data-field="valueCopy[3]">გიმოგზავნით სახლამდე გაცივებულად და სუფთად, რომ პროდუქტი იგივე გემოთი მივიდეს, როგორც ფერმაშია.</p>
-          </li>
-        </ul>
+        <figure class="visit-sign__figure">
+          <div class="visit-sign__frame">
+            <img
+              src="./images/sign-naturmilk.jpeg"
+              alt="Natur Milk საინგი — დ. გურამიშვილის N 8"
+              loading="lazy"
+              width="1600"
+              height="700"
+            />
+          </div>
+          <figcaption class="visit-sign__caption">
+            <span>დ. გურამიშვილის N 8</span>
+            <a href="https://www.naturmilk.shop" target="_blank" rel="noopener noreferrer">naturmilk.shop</a>
+          </figcaption>
+        </figure>
       </div>
     </section>
 
     <!-- Testimonials -->
-    <section class="slider" id="testimonial-slider">
-      <div class="slider__track" data-track>
-        <!-- Slide 1 -->
-        <article class="slide">
-          <div class="slider-card">
-            <p class="slider-quote" data-field="testimonialText[0]">
-              იოგურტი გაქვთ საოცრება, შვილებს უყვართ. რა კარგია, რომ ნამდვილი რძეა და არა ფხვნილი.
-            </p>
-            <p class="slider-name" data-field="testimonialName[0]">ნინო, თბილისი</p>
-          </div>
-        </article>
-
-        <!-- Slide 2 -->
-        <article class="slide">
-          <div class="slider-card">
-            <p class="slider-quote" data-field="testimonialText[1]">
-              სულგუნს ზუსტად ისეთი გემო აქვს, როგორსაც ბავშვობაში დედაჩემი მიკეთებდა. უგემრიელესი!!
-            </p>
-            <p class="slider-name" data-field="testimonialName[1]">მაკა, თბილისი</p>
-          </div>
-        </article>
-
-        <!-- Slide 3 -->
-        <article class="slide">
-          <div class="slider-card">
-            <p class="slider-quote" data-field="testimonialText[2]">
-              პირველად შევუკვეთე ნაკრები და სტუმრებს ძალიან მოეწონათ, ეგრევე გამომკითხეს ყველაფერი. რეკომენდაცია ჩემგანაც!
-            </p>
-            <p class="slider-name" data-field="testimonialName[2]">მარიამი, თბილისი</p>
-          </div>
-        </article>
-
-        <!-- Slide 4 -->
-        <article class="slide">
-          <div class="slider-card">
-            <p class="slider-quote" data-field="testimonialText[3]">
-              მიწოდება სწრაფია, შეფუთვაც კაია და მთავარი არაფერი აქვს ხელოვნური გემო. ყველას გირჩევთ.
-            </p>
-            <p class="slider-name" data-field="testimonialName[3]">ლაშა, თბილისი</p>
-          </div>
-        </article>
+    <section class="reviews" id="testimonial-slider">
+      <div class="reviews__shell">
+        <header class="reviews__header">
+          <h2 class="reviews__title">რას ამბობენ მომხმარებლები</h2>
+        </header>
       </div>
 
-      <!-- arrows -->
-      <div class="slider-nav slider-nav--wrap">
-        <button class="arr-btn" data-prev aria-label="წინა შეფასება">
-          <span class="slider-icon icon--left"></span>
-        </button>
-        <button class="arr-btn" data-next aria-label="შემდეგი შეფასება">
-          <span class="slider-icon icon--right"></span>
-        </button>
+      <div class="reviews__marquee">
+        <div class="reviews__track" data-marquee-track>
+          <div class="reviews__group">
+            <article class="reviews-card">
+              <div class="slider-card">
+                <p class="slider-quote" data-field="testimonialText[0]">
+                  იოგურტი გაქვთ საოცრება, შვილებს უყვართ. რა კარგია, რომ ნამდვილი რძეა და არა ფხვნილი.
+                </p>
+                <p class="slider-name" data-field="testimonialName[0]">ნინო, თბილისი</p>
+              </div>
+            </article>
+
+            <article class="reviews-card">
+              <div class="slider-card">
+                <p class="slider-quote" data-field="testimonialText[1]">
+                  სულგუნს ზუსტად ისეთი გემო აქვს, როგორსაც ბავშვობაში დედაჩემი მიკეთებდა. უგემრიელესი!!
+                </p>
+                <p class="slider-name" data-field="testimonialName[1]">მაკა, თბილისი</p>
+              </div>
+            </article>
+
+            <article class="reviews-card">
+              <div class="slider-card">
+                <p class="slider-quote" data-field="testimonialText[2]">
+                  პირველად შევუკვეთე ნაკრები და სტუმრებს ძალიან მოეწონათ, ეგრევე გამომკითხეს ყველაფერი. რეკომენდაცია ჩემგანაც!
+                </p>
+                <p class="slider-name" data-field="testimonialName[2]">მარიამი, თბილისი</p>
+              </div>
+            </article>
+
+            <article class="reviews-card">
+              <div class="slider-card">
+                <p class="slider-quote" data-field="testimonialText[3]">
+                  მიწოდება სწრაფია, შეფუთვაც კაია და მთავარი არაფერი აქვს ხელოვნური გემო. ყველას გირჩევთ.
+                </p>
+                <p class="slider-name" data-field="testimonialName[3]">ლაშა, თბილისი</p>
+              </div>
+            </article>
+
+            <article class="reviews-card">
+              <div class="slider-card">
+                <p class="slider-quote" data-field="testimonialText[4]">
+                  ყველის გემო ნამდვილად ფერმერულია — ყოველ შაბათს ვეკვეთით და ოჯახში ყველას სიამოვნება.
+                </p>
+                <p class="slider-name" data-field="testimonialName[4]">თამარი, ბათუმი</p>
+              </div>
+            </article>
+
+            <article class="reviews-card">
+              <div class="slider-card">
+                <p class="slider-quote" data-field="testimonialText[5]">
+                  ბავშვები იოგურტს სიამოვნებით ართმევენ, რაც ჩვენთვის ყველაზე მთავარია. გმადლობთ ხარისხისთვის.
+                </p>
+                <p class="slider-name" data-field="testimonialName[5]">ლელა, ქუთაისი</p>
+              </div>
+            </article>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -523,22 +574,18 @@
       </div>
     </footer>
 
+    <script src="./js/vendor/lenis.min.js"></script>
+    <script src="./js/lenis-init.js"></script>
+    <script src="./js/hero-video.js"></script>
     <script src="./js/script.js"></script>
     <script src="./js/navbar.js"></script>
 
     <!-- SCROLL TO TOP -->
-    <button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="მაღლა">
+    <button class="scroll-top-btn" id="scrollTopBtn" aria-label="მაღლა">
       <svg class="scroll-top-svg" viewBox="0 0 384 512">
         <path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"/>
       </svg>
     </button>
-
-    <script>
-      const scrollTopBtn = document.getElementById("scrollTopBtn");
-      window.addEventListener("scroll", () => {
-        scrollTopBtn.classList.toggle("scroll-top-btn--visible", window.scrollY > 300);
-      });
-    </script>
     
   </body>
 </html>
