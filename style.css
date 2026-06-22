@@ -1954,7 +1954,7 @@ a.brand > .brandmark[data-filled="1"] + .brand-fallback {
 .dome {
   width: var(--dome-d);
   height: calc(var(--dome-d) / 2);
-  background: var(--buttoncolor);
+  background: #f7e3a9;
   border: 1px solid var(--text);
   border-top-left-radius: calc(var(--dome-d) / 2);
   border-top-right-radius: calc(var(--dome-d) / 2);
@@ -2113,7 +2113,7 @@ a.brand > .brandmark[data-filled="1"] + .brand-fallback {
   padding: 0 22px;
   border: 2px solid var(--text);
   border-radius: 9999px;
-  background: var(--buttoncolor);
+  background: #f7e3a9;
   color: var(--text);
   font-weight: 500;
   letter-spacing: .02em;
@@ -2131,7 +2131,7 @@ a.brand > .brandmark[data-filled="1"] + .brand-fallback {
   content: '';
   position: absolute;
   inset: 0;
-  background: var(--buttonhover);
+  background: #d1bd82;
   border-radius: inherit;
 
   transform: translate(-100%, 0) rotate(10deg);
@@ -2367,7 +2367,7 @@ a.brand > .brandmark[data-filled="1"] + .brand-fallback {
 
 .footer__links {
   display: grid;
-  grid-template-columns: repeat(3, minmax(140px, 1fr));
+  grid-template-columns: repeat(2, minmax(140px, 1fr));
   gap: clamp(16px, 3vw, 40px);
 }
 
@@ -2433,10 +2433,10 @@ a.brand > .brandmark[data-filled="1"] + .brand-fallback {
 }
 
 .icon-arrow{
-  width:120px; height:132px; display:inline-block;
-  background-color: var(--text);
-  -webkit-mask: url("./images/arrow.svg") no-repeat center / contain;
-          mask: url("./images/arrow.svg") no-repeat center / contain;
+  width: 120px;
+  height: 132px;
+  display: inline-block;
+  object-fit: contain;
 }
 
 
@@ -2800,4 +2800,31 @@ a.brand > .brandmark[data-filled="1"] + .brand-fallback {
 
 .scroll-top-btn:hover::before {
   font-size: 14px;
+}
+
+/* Legal pages */
+.legal-page {
+  padding: calc(var(--mobile-bar-h, 100px) + 48px) clamp(20px, 4vw, 40px) 80px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.legal-page h1 {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  margin-bottom: 1.5rem;
+}
+
+.legal-page h2 {
+  font-size: 1.15rem;
+  margin: 2rem 0 0.75rem;
+}
+
+.legal-page p,
+.legal-page li {
+  line-height: 1.75;
+  color: #333;
+}
+
+.legal-page ul {
+  padding-left: 1.25rem;
 }

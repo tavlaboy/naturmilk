@@ -10,10 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Headland+One&display=swap" rel="stylesheet" />
     <title data-field="footerBrand">Natur Milk</title>
 
-    <!-- Hero media: start fetching before body paints -->
-    <link rel="preload" href="./images/main-img.jpeg" as="image" fetchpriority="high" />
-    <link rel="preload" href="./images/hero-naturmilk-720p.mp4" as="video" type="video/mp4" fetchpriority="high" />
-
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png" />
@@ -118,7 +114,7 @@
               playsinline
               preload="metadata"
               fetchpriority="high"
-              poster="./images/main-img.jpeg"
+              poster="./images/sign-naturmilk.jpeg"
               width="1280"
               height="720"
               disablepictureinpicture
@@ -172,7 +168,7 @@
           <!-- plain text binding (no *Html) -->
           <h2 class="bestsellers__title" data-field="bestsellersTitle"><br /> პროდუქტები</h2>
           <!-- Arrow stays local, not data-bound -->
-          <span class="icon-arrow" aria-hidden="true"></span>
+          <img class="icon-arrow" src="./images/arrow.svg" alt="" aria-hidden="true" />
         </div>
 
         <!-- Cards -->
@@ -512,16 +508,16 @@
     <section class="bts">
       <div class="container">
         <div class="bts__top">
-          <h2 class="bts__title" data-field="btsTitle">კადრს მიღმა Natur Milk</h2>
-          <a class="bts__link" href="https://www.facebook.com/profile.php?id=61583330563736" target="_blank" rel="noopener" data-field="btsLinkText">გამოგვყევი facebook-ზე</a>
+          <h2 class="bts__title" data-field="btsTitle">გამოგყვევი Facebook-ზე</h2>
+          <a class="bts__link" href="https://www.facebook.com/profile.php?id=61583330563736" target="_blank" rel="noopener" data-field="btsLinkText">წვეულებები, სიახლეები ჩვენს ფერმაში და ბევრი მეტი!</a>
         </div>
 
         <ul class="bts__grid">
-          <li><a class="bts__item" href="#"><img data-field="btsThumb[0]" src="./images/dzroxa.webp" alt="ფერმის კადრი 1" /></a></li>
-          <li><a class="bts__item" href="#"><img data-field="btsThumb[1]" src="./images/dzroxa2.jpg" alt="ფერმის კადრი 2" /></a></li>
-          <li><a class="bts__item" href="#"><img data-field="btsThumb[2]" src="./images/yveli1.jpg" alt="ფერმის კადრი 3" /></a></li>
-          <li><a class="bts__item" href="#"><img data-field="btsThumb[3]" src="./images/natural.avif" alt="ფერმის კადრი 4" /></a></li>
-          <li><a class="bts__item" href="#"><img data-field="btsThumb[4]" src="./images/check.PNG" alt="ფერმის კადრი 5" /></a></li>
+          <li><a class="bts__item" href="https://www.facebook.com/profile.php?id=61583330563736"><img data-field="btsThumb[0]" src="./images/blog1.jpg" alt="ფერმის კადრი 1" /></a></li>
+          <li><a class="bts__item" href="https://www.facebook.com/profile.php?id=61583330563736"><img data-field="btsThumb[1]" src="./images/dzroxa2.jpg" alt="ფერმის კადრი 2" /></a></li>
+          <li><a class="bts__item" href="https://www.facebook.com/profile.php?id=61583330563736"><img data-field="btsThumb[2]" src="./images/blog2.jpg" alt="ფერმის კადრი 3" /></a></li>
+          <li><a class="bts__item" href="https://www.facebook.com/profile.php?id=61583330563736"><img data-field="btsThumb[3]" src="./images/100natural.PNG" alt="ფერმის კადრი 4" /></a></li>
+          <li><a class="bts__item" href="https://www.facebook.com/profile.php?id=61583330563736"><img data-field="btsThumb[4]" src="./images/check.PNG" alt="ფერმის კადრი 5" /></a></li>
         </ul>
       </div>
     </section>
@@ -550,13 +546,8 @@
             </ul>
             <ul class="footer__col">
               <li><a href="#about" data-field="footerCol2[0]">ჩვენს შესახებ</a></li>
-              <li><a href="#" data-field="footerCol2[1]">წესები და პირობები</a></li>
-              <li><a href="#" data-field="footerCol2[2]">კონფიდენციალურობის პოლიტიკა</a></li>
-            </ul>
-            <ul class="footer__col">
-              <li><a href="#" data-field="footerCol3[0]">სტილის გიდი</a></li>
-              <li><a href="#" data-field="footerCol3[1]">ლიცენზირება</a></li>
-              <li><a href="#" data-field="footerCol3[2]">ცვლილებების ჟურნალი</a></li>
+              <li><a href="terms.html" data-field="footerCol2[1]">წესები და პირობები</a></li>
+              <li><a href="privacy.html" data-field="footerCol2[2]">კონფიდენციალურობის პოლიტიკა</a></li>
             </ul>
           </nav>
         </div>
