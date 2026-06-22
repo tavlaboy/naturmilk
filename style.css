@@ -2176,6 +2176,17 @@ a.brand > .brandmark[data-filled="1"] + .brand-fallback {
   font-size: clamp(28px, 6vw, 64px);
 }
 
+.bts__title-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.bts__title-link:hover .bts__title {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1.5px;
+}
+
 .bts__link {
   color: var(--text, #111);
   text-decoration: underline;
