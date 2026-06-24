@@ -31,17 +31,6 @@
       <div class="nav-inner">
         <a href="/" class="mobile-brand" data-field="footerBrand">Natur Milk</a>
 
-        <button class="nav-toggle" aria-expanded="false" aria-label="მენიუს გახსნა">
-          <!-- hamburger -->
-          <svg class="icon icon-bars" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
-            <path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-          </svg>
-          <!-- close -->
-          <svg class="icon icon-x" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
-            <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-          </svg>
-        </button>
-
         <a href="/" class="brand" id="brand" aria-label="Natur Milk">
           <svg class="brand-shoulders" aria-hidden="true" viewBox="0 0 164 164">
             <path
@@ -59,42 +48,55 @@
             class="brandmark"
             src="./images/new-header-logo.png"
             alt="Natur Milk ლოგო"
+            data-i18n-alt="alt.logo"
           />
           <span class="brandmark" data-field="siteLogoHtml" aria-hidden="true"></span>
         </a>
 
-        <nav aria-label="ძირითადი მენიუ" class="primary-nav">
+        <nav aria-label="ძირითადი მენიუ" class="primary-nav" data-i18n-aria="aria.mainMenu">
           <ul class="menu">
-            <li><a href="#shop" data-field="navItem[0]" class="nav-link">მაღაზია</a></li>
-            <li><a href="#about" data-field="navItem[1]" class="nav-link">ჩვენს შესახებ</a></li>
-            <li><a href="#blog" data-field="navItem[2]" class="nav-link">ბლოგი</a></li>
-            <li><a href="productPage.html" class="nav-link">ყველა პროდუქტი</a></li>
+            <li><a href="#shop" data-field="navItem[0]" data-i18n="nav.shop" class="nav-link">მაღაზია</a></li>
+            <li><a href="#about" data-field="navItem[1]" data-i18n="nav.about" class="nav-link">ჩვენს შესახებ</a></li>
+            <li><a href="#blog" data-field="navItem[2]" data-i18n="nav.blog" class="nav-link">ბლოგი</a></li>
+            <li><a href="productPage.html" data-i18n="nav.allProducts" class="nav-link">ყველა პროდუქტი</a></li>
           </ul>
         </nav>
 
+        <div class="nav-end">
+          <button type="button" class="lang-switch" data-i18n-aria="aria.switchEn" aria-pressed="false">EN</button>
 
-        <div class="actions">
-          <a href="productPage.html" class="header-cta" data-field="searchLabel" aria-label="შეიძინე ონლაინ">
-            <span class="button_top">შეიძინე ონლაინ</span>
+          <button class="nav-toggle" aria-expanded="false" data-i18n-aria="aria.openMenu">
+            <!-- hamburger -->
+            <svg class="icon icon-bars" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+              <path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+            <!-- close -->
+            <svg class="icon icon-x" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+              <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </button>
+
+          <a href="productPage.html" class="header-cta" data-field="searchLabel" data-i18n-aria="nav.buyOnline">
+            <span class="button_top" data-i18n="nav.buyOnline">შეიძინე ონლაინ</span>
           </a>
         </div>
       </div>
 
       <!-- Mobile -->
       <div class="mobile-backdrop" id="mobileBackdrop" aria-hidden="true"></div>
-      <div class="mobile-panel" id="mobilePanel" role="dialog" aria-modal="true" aria-label="საიტის მენიუ">
+      <div class="mobile-panel" id="mobilePanel" role="dialog" aria-modal="true" data-i18n-aria="aria.siteMenu">
         <div class="mobile-panel__inner">
-          <nav class="mobile-nav" aria-label="მობილური მენიუ">
+          <nav class="mobile-nav" aria-label="მობილური მენიუ" data-i18n-aria="aria.mobileMenu">
             <ul class="mobile-list">
-              <li><a href="#shop" data-field="navItem[0]">მაღაზია</a></li>
-              <li><a href="#about" data-field="navItem[1]">ჩვენს შესახებ</a></li>
-              <li><a href="#blog" data-field="navItem[2]">ბლოგი</a></li>
-              <li><a href="productPage.html">ყველა პროდუქტი</a></li>
+              <li><a href="#shop" data-field="navItem[0]" data-i18n="nav.shop">მაღაზია</a></li>
+              <li><a href="#about" data-field="navItem[1]" data-i18n="nav.about">ჩვენს შესახებ</a></li>
+              <li><a href="#blog" data-field="navItem[2]" data-i18n="nav.blog">ბლოგი</a></li>
+              <li><a href="productPage.html" data-i18n="nav.allProducts">ყველა პროდუქტი</a></li>
             </ul>
           </nav>
           <div class="mobile-panel__footer">
-            <a href="productPage.html" class="header-cta mobile-header-cta" data-field="searchLabel" aria-label="შეიძინე ონლაინ">
-              <span class="button_top">შეიძინე ონლაინ</span>
+            <a href="productPage.html" class="header-cta mobile-header-cta" data-field="searchLabel" data-i18n-aria="nav.buyOnline">
+              <span class="button_top" data-i18n="nav.buyOnline">შეიძინე ონლაინ</span>
             </a>
           </div>
         </div>
@@ -112,27 +114,26 @@
               muted
               loop
               playsinline
-              preload="metadata"
-              fetchpriority="high"
-              poster="./images/sign-naturmilk.jpeg"
+              preload="auto"
               width="1280"
               height="720"
               disablepictureinpicture
               disableremoteplayback
             >
+              <source src="./images/hero-naturmilk.webm" type="video/webm" />
               <source src="./images/hero-naturmilk-720p.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
             <div class="hero-content">
               <!-- plain text binding (no *Html) -->
-              <h1 class="hero-title" data-field="heroTitle">ნატურალური<br />რძის პროდუქტები</h1>
-              <a class="hero-cta" href="productPage.html" data-field="heroCTA">პროდუქტების ნახვა</a>
+              <h1 class="hero-title" data-field="heroTitle" data-i18n="hero.title" data-i18n-html>ნატურალური<br />რძის პროდუქტები</h1>
+              <a class="hero-cta" href="productPage.html" data-field="heroCTA" data-i18n="hero.cta">პროდუქტების ნახვა</a>
 
             </div>
             
           </div>
 
-          <button class="scroll-btn" aria-label="დაწიე ქვემოთ">
+          <button class="scroll-btn" data-i18n-aria="aria.scrollDown">
             <span class="scroll-btn__viewport" aria-hidden="true">
               <span class="scroll-btn__track">
                 <svg class="scroll-btn__arrow" viewBox="0 3 24 30" fill="none">
@@ -152,10 +153,8 @@
     <span id="about"></span>
     <section id="intro" class="intro">
       <div class="container">
-        <p class="intro-lead" data-field="introLead">
-          
-          ოჯახური ფერმა, სადაც თითოეული პროდუქტი
-მზადდება სუფთა ნედლეულით და ყოველდღიური ზრუნვით.
+        <p class="intro-lead" data-field="introLead" data-i18n="intro.lead">
+          ოჯახური ფერმა, სადაც თითოეული პროდუქტი მზადდება სუფთა ნედლეულით და ყოველდღიური ზრუნვით.
         </p>
       </div>
     </section>
@@ -166,7 +165,7 @@
         <!-- Left column -->
         <div class="bestsellers__intro">
           <!-- plain text binding (no *Html) -->
-          <h2 class="bestsellers__title" data-field="bestsellersTitle"><br /> პროდუქტები</h2>
+          <h2 class="bestsellers__title" data-field="bestsellersTitle" data-i18n="shop.title" data-i18n-html>ჩვენი<br />პროდუქტები</h2>
           <!-- Arrow stays local, not data-bound -->
           <img class="icon-arrow" src="./images/arrow.svg" alt="" aria-hidden="true" />
         </div>
@@ -176,21 +175,21 @@
           <!-- Card 1 -->
           <article class="card">
             <div class="card__arch">
-              <img data-field="productThumb[0]" src="./images/buratta.webp" alt="სულგუნის ყველი" />
-              <a class="card__hover" href="#">ყიდვა</a>
+              <img data-field="productThumb[0]" src="./images/buratta.webp" alt="სულგუნის ყველი" data-i18n-alt="alt.burrata" />
+              <a class="card__hover" href="#" data-i18n="product.buy">ყიდვა</a>
             </div>
-            <span class="card__badge" data-field="productBadge[0]">სიახლე</span>
-            <h3 class="card__name" data-field="productTitle[0]">ბურატა</h3>
+            <span class="card__badge" data-field="productBadge[0]" data-i18n="product.new">სიახლე</span>
+            <h3 class="card__name" data-field="productTitle[0]" data-i18n="product.burrata">ბურატა</h3>
             <p class="card__price" data-field="productPrice[0]">₾ 6.0</p>
           </article>
 
           <!-- Card 2 (badge, old/new price) -->
           <article class="card">
             <div class="card__arch">
-              <img data-field="productThumb[1]" src="./images/imeruli.jpg" alt="იმერული ყველი" />
-              <a class="card__hover" href="#">ყიდვა</a>
+              <img data-field="productThumb[1]" src="./images/imeruli.jpg" alt="იმერული ყველი" data-i18n-alt="alt.imeruli" />
+              <a class="card__hover" href="#" data-i18n="product.buy">ყიდვა</a>
             </div>
-            <h3 class="card__name" data-field="productTitle[1]">იმერული</h3>
+            <h3 class="card__name" data-field="productTitle[1]" data-i18n="product.imeruli">იმერული</h3>
             <p class="card__price">
               <span class="card__price--new" data-field="productPriceNew[1]">₾ 15.00</span>
             </p>
@@ -199,10 +198,10 @@
           <!-- Card 3 -->
           <article class="card">
             <div class="card__arch">
-              <img data-field="productThumb[2]" src="./images/marble-cheese.png" alt="იოგურტის პროდუქტი" />
-              <a class="card__hover" href="#">ყიდვა</a>
+              <img data-field="productThumb[2]" src="./images/marble-cheese.png" alt="იოგურტის პროდუქტი" data-i18n-alt="alt.marble" />
+              <a class="card__hover" href="#" data-i18n="product.buy">ყიდვა</a>
             </div>
-            <h3 class="card__name" data-field="productTitle[2]">მარმარილოს ყველი</h3>
+            <h3 class="card__name" data-field="productTitle[2]" data-i18n="product.marble">მარმარილოს ყველი</h3>
             <p class="card__price" data-field="productPrice[2]">₾ 20.0</p>
           </article>
         </div>
@@ -212,7 +211,7 @@
             <div class="ring-layer">
               <div class="outer-button">
                 <div class="inner-button">
-                  <span>ყველა პროდუქტი</span>
+                  <span data-i18n="shop.allProducts">ყველა პროდუქტი</span>
                 </div>
               </div>
             </div>
@@ -228,31 +227,31 @@
       <div class="scroller-wrapper">
         <div class="scroller-track" id="scroller-track">
           <div class="word">
-            <span data-field="scrollerWord[0]">ყველი</span>
+            <span data-field="scrollerWord[0]" data-i18n="scroller.cheese">ყველი</span>
             <span class="scroller-star" aria-hidden="true"></span>
-            <span data-field="scrollerWord[1]">იოგურტი</span>
+            <span data-field="scrollerWord[1]" data-i18n="scroller.yogurt">იოგურტი</span>
             <span class="scroller-star" aria-hidden="true"></span>
-            <span data-field="scrollerWord[2]">მაწონი</span>
+            <span data-field="scrollerWord[2]" data-i18n="scroller.matsoni">მაწონი</span>
             <span class="scroller-star" aria-hidden="true"></span>
-            <span data-field="scrollerWord[3]">კარაქი</span>
+            <span data-field="scrollerWord[3]" data-i18n="scroller.butter">კარაქი</span>
           </div>
           <div class="word">
-            <span data-field="scrollerWord[0]">ყველი</span>
+            <span data-field="scrollerWord[0]" data-i18n="scroller.cheese">ყველი</span>
             <span class="scroller-star" aria-hidden="true"></span>
-            <span data-field="scrollerWord[1]">იოგურტი</span>
+            <span data-field="scrollerWord[1]" data-i18n="scroller.yogurt">იოგურტი</span>
             <span class="scroller-star" aria-hidden="true"></span>
-            <span data-field="scrollerWord[2]">მაწონი</span>
+            <span data-field="scrollerWord[2]" data-i18n="scroller.matsoni">მაწონი</span>
             <span class="scroller-star" aria-hidden="true"></span>
-            <span data-field="scrollerWord[3]">კარაქი</span>
+            <span data-field="scrollerWord[3]" data-i18n="scroller.butter">კარაქი</span>
           </div>
           <div class="word">
-            <span data-field="scrollerWord[0]">ყველი</span>
+            <span data-field="scrollerWord[0]" data-i18n="scroller.cheese">ყველი</span>
             <span class="scroller-star" aria-hidden="true"></span>
-            <span data-field="scrollerWord[1]">იოგურტი</span>
+            <span data-field="scrollerWord[1]" data-i18n="scroller.yogurt">იოგურტი</span>
             <span class="scroller-star" aria-hidden="true"></span>
-            <span data-field="scrollerWord[2]">მაწონი</span>
+            <span data-field="scrollerWord[2]" data-i18n="scroller.matsoni">მაწონი</span>
             <span class="scroller-star" aria-hidden="true"></span>
-            <span data-field="scrollerWord[3]">კარაქი</span>
+            <span data-field="scrollerWord[3]" data-i18n="scroller.butter">კარაქი</span>
           </div>
         </div>
       </div>
@@ -260,31 +259,31 @@
       <div class="scroller-wrapper">
         <div class="scroller-track track-bottom" id="scroller-track-2">
           <div class="word">
-            <span data-field="scrollerWord[0]">ყველი</span>
+            <span data-field="scrollerWord[0]" data-i18n="scroller.cheese">ყველი</span>
             <span class="scroller-star" aria-hidden="true"></span>
-            <span data-field="scrollerWord[1]">იოგურტი</span>
+            <span data-field="scrollerWord[1]" data-i18n="scroller.yogurt">იოგურტი</span>
             <span class="scroller-star" aria-hidden="true"></span>
-            <span data-field="scrollerWord[2]">მაწონი</span>
+            <span data-field="scrollerWord[2]" data-i18n="scroller.matsoni">მაწონი</span>
             <span class="scroller-star" aria-hidden="true"></span>
-            <span data-field="scrollerWord[3]">კარაქი</span>
+            <span data-field="scrollerWord[3]" data-i18n="scroller.butter">კარაქი</span>
           </div>
           <div class="word">
-            <span data-field="scrollerWord[0]">ყველი</span>
+            <span data-field="scrollerWord[0]" data-i18n="scroller.cheese">ყველი</span>
             <span class="scroller-star" aria-hidden="true"></span>
-            <span data-field="scrollerWord[1]">იოგურტი</span>
+            <span data-field="scrollerWord[1]" data-i18n="scroller.yogurt">იოგურტი</span>
             <span class="scroller-star" aria-hidden="true"></span>
-            <span data-field="scrollerWord[2]">მაწონი</span>
+            <span data-field="scrollerWord[2]" data-i18n="scroller.matsoni">მაწონი</span>
             <span class="scroller-star" aria-hidden="true"></span>
-            <span data-field="scrollerWord[3]">კარაქი</span>
+            <span data-field="scrollerWord[3]" data-i18n="scroller.butter">კარაქი</span>
           </div>
           <div class="word">
-            <span data-field="scrollerWord[0]">ყველი</span>
+            <span data-field="scrollerWord[0]" data-i18n="scroller.cheese">ყველი</span>
             <span class="scroller-star" aria-hidden="true"></span>
-            <span data-field="scrollerWord[1]">იოგურტი</span>
+            <span data-field="scrollerWord[1]" data-i18n="scroller.yogurt">იოგურტი</span>
             <span class="scroller-star" aria-hidden="true"></span>
-            <span data-field="scrollerWord[2]">მაწონი</span>
+            <span data-field="scrollerWord[2]" data-i18n="scroller.matsoni">მაწონი</span>
             <span class="scroller-star" aria-hidden="true"></span>
-            <span data-field="scrollerWord[3]">კარაქი</span>
+            <span data-field="scrollerWord[3]" data-i18n="scroller.butter">კარაქი</span>
           </div>
         </div>
       </div>
@@ -293,30 +292,30 @@
     <!-- Shop by Category -->
     <section class="categories" id="categories">
       <div class="container categories__wrap">
-        <h2 class="categories__title" data-field="categoriesTitle">შეიძინე კატეგორიების მიხედვით</h2>
+        <h2 class="categories__title" data-field="categoriesTitle" data-i18n="categories.title">შეიძინე კატეგორიების მიხედვით</h2>
 
         <div class="categories__grid">
           <!-- Card 1 -->
           <a class="cat-card" href="#shop">
             <div class="cat-card__pill">
-              <img data-field="categoryThumb[0]" src="./images/yveli.png" alt="ახალი ყველის კატეგორია" />
-              <span class="cat-card__hover" data-field="categoryLabel[0]">ახალი ყველი</span>
+              <img data-field="categoryThumb[0]" src="./images/yveli.png" alt="ახალი ყველის კატეგორია" data-i18n-alt="alt.catCheese" />
+              <span class="cat-card__hover" data-field="categoryLabel[0]" data-i18n="categories.freshCheese">ახალი ყველი</span>
             </div>
           </a>
 
           <!-- Card 2 -->
           <a class="cat-card" href="#shop">
             <div class="cat-card__pill">
-              <img data-field="categoryThumb[1]" src="./images/mid.png" alt="იოგურტისა და მაწვნის კატეგორია" />
-              <span class="cat-card__hover" data-field="categoryLabel[1]">რძე და მაწონი</span>
+              <img data-field="categoryThumb[1]" src="./images/mid.png" alt="იოგურტისა და მაწვნის კატეგორია" data-i18n-alt="alt.catMilk" />
+              <span class="cat-card__hover" data-field="categoryLabel[1]" data-i18n="categories.milkMatsoni">რძე და მაწონი</span>
             </div>
           </a>
 
           <!-- Card 3 -->
           <a class="cat-card" href="#shop">
             <div class="cat-card__pill">
-              <img data-field="categoryThumb[2]" src="./images/dessert.png" alt="რძის ნაწარმის კატეგორია" />
-              <span class="cat-card__hover" data-field="categoryLabel[2]">დესერტები</span>
+              <img data-field="categoryThumb[2]" src="./images/dessert.png" alt="რძის ნაწარმის კატეგორია" data-i18n-alt="alt.catDessert" />
+              <span class="cat-card__hover" data-field="categoryLabel[2]" data-i18n="categories.desserts">დესერტები</span>
             </div>
           </a>
         </div>
@@ -327,22 +326,22 @@
     <section class="clay">
       <div class="container clay__grid">
         <div class="clay__copy">
-          <h2 class="clay__title" data-field="featureTitle">ნატურალური საუზმის ნაკრები</h2>
-          <p class="clay__desc" data-field="featureDesc">
+          <h2 class="clay__title" data-field="featureTitle" data-i18n="feature.title">ნატურალური საუზმის ნაკრები</h2>
+          <p class="clay__desc" data-field="featureDesc" data-i18n="feature.desc">
             აირჩიე Natur Milk–ის სპეციალური ნაკრები — ხელით დამზადებული ყველი, ნაღებიანი იოგურტი და კარაქი, რომლებიც სრულყოფილ ქართულ საუზმეს გიმზადებს. ყველაფერი მზადდება ჩვენსავე ფერმაში, დამატკბობების და პალმის ცხიმის გარეშე.
           </p>
 
           <ul class="clay__features">
-            <li data-field="featurePoint[1]">100% ჩვენი ფერმის რძე</li>
-            <li data-field="featurePoint[2]">არანაირი კონსერვანტი</li>
+            <li data-field="featurePoint[1]" data-i18n="feature.point1">100% ჩვენი ფერმის რძე</li>
+            <li data-field="featurePoint[2]" data-i18n="feature.point2">არანაირი კონსერვანტი</li>
           </ul>
 
-          <a href="productPage.html" class="kit-cta" data-field="featureCTA">შეუკვეთე ნაკრები ახლა</a>
+          <a href="productPage.html" class="kit-cta" data-field="featureCTA" data-i18n="feature.cta">შეუკვეთე ნაკრები ახლა</a>
         </div>
 
         <div class="clay__visual">
           <div class="clay__arch">
-            <img data-field="featureImage" src="./images/additional.png" alt="Natur Milk ფერმის ძროხა" />
+            <img data-field="featureImage" src="./images/additional.png" alt="Natur Milk ფერმის ძროხა" data-i18n-alt="alt.feature" />
           </div>
         </div>
       </div>
@@ -352,7 +351,7 @@
     <section class="visit-sign" id="visit">
       <div class="visit-sign__wrap">
         <header class="visit-sign__header">
-          <h2 class="visit-sign__title">გვესტუმრეთ ადგილზე</h2>
+          <h2 class="visit-sign__title" data-i18n="visit.title">გვესტუმრეთ ადგილზე</h2>
         </header>
 
         <figure class="visit-sign__figure">
@@ -360,13 +359,14 @@
             <img
               src="./images/sign-naturmilk.jpeg"
               alt="Natur Milk საინგი — დ. გურამიშვილის N 8"
+              data-i18n-alt="alt.sign"
               loading="lazy"
               width="1600"
               height="700"
             />
           </div>
           <figcaption class="visit-sign__caption">
-            <span>დ. გურამიშვილის N 8</span>
+            <span data-i18n="visit.caption">დ. გურამიშვილის N 8</span>
             <a href="https://www.naturmilk.shop" target="_blank" rel="noopener noreferrer">naturmilk.shop</a>
           </figcaption>
         </figure>
@@ -377,7 +377,7 @@
     <section class="reviews" id="testimonial-slider">
       <div class="reviews__shell">
         <header class="reviews__header">
-          <h2 class="reviews__title">რას ამბობენ მომხმარებლები</h2>
+          <h2 class="reviews__title" data-i18n="reviews.title">რას ამბობენ მომხმარებლები</h2>
         </header>
       </div>
 
@@ -386,55 +386,55 @@
           <div class="reviews__group">
             <article class="reviews-card">
               <div class="slider-card">
-                <p class="slider-quote" data-field="testimonialText[0]">
-                  იოგურტი გაქვთ საოცრება, შვილებს უყვართ. რა კარგია, რომ ნამდვილი რძეა და არა ფხვნილი.
+                <p class="slider-quote" data-field="testimonialText[0]" data-i18n="review.0.text">
+                  იოგურტი გაქვთ საოცრება, შვილებს უყვართ. ნამდვილი რძეა და არა ფხვნილი, ძალიან კარგია.
                 </p>
-                <p class="slider-name" data-field="testimonialName[0]">ნინო, თბილისი</p>
+                <p class="slider-name" data-field="testimonialName[0]" data-i18n="review.0.name">ნინო, თბილისი</p>
               </div>
             </article>
 
             <article class="reviews-card">
               <div class="slider-card">
-                <p class="slider-quote" data-field="testimonialText[1]">
-                  სულგუნს ზუსტად ისეთი გემო აქვს, როგორსაც ბავშვობაში დედაჩემი მიკეთებდა. უგემრიელესი!!
+                <p class="slider-quote" data-field="testimonialText[1]" data-i18n="review.1.text">
+                  სულგუნს ზუსტად ისეთი გემო აქვს, როგორსაც ბავშვობაში ბებიაჩემი მიკეთებდა. უგემრიელესი!!
                 </p>
-                <p class="slider-name" data-field="testimonialName[1]">მაკა, თბილისი</p>
+                <p class="slider-name" data-field="testimonialName[1]" data-i18n="review.1.name">მაკა, თბილისი</p>
               </div>
             </article>
 
             <article class="reviews-card">
               <div class="slider-card">
-                <p class="slider-quote" data-field="testimonialText[2]">
+                <p class="slider-quote" data-field="testimonialText[2]" data-i18n="review.2.text">
                   პირველად შევუკვეთე ნაკრები და სტუმრებს ძალიან მოეწონათ, ეგრევე გამომკითხეს ყველაფერი. რეკომენდაცია ჩემგანაც!
                 </p>
-                <p class="slider-name" data-field="testimonialName[2]">მარიამი, თბილისი</p>
+                <p class="slider-name" data-field="testimonialName[2]" data-i18n="review.2.name">მარიამი, თბილისი</p>
               </div>
             </article>
 
             <article class="reviews-card">
               <div class="slider-card">
-                <p class="slider-quote" data-field="testimonialText[3]">
-                  მიწოდება სწრაფია, შეფუთვაც კაია და მთავარი არაფერი აქვს ხელოვნური გემო. ყველას გირჩევთ.
+                <p class="slider-quote" data-field="testimonialText[3]" data-i18n="review.3.text">
+                  მიწოდება სწრაფია, შეფუთვაც კაია და მთავარი არაფერი აქვს ხელოვნური გემო. გირჩევთ
                 </p>
-                <p class="slider-name" data-field="testimonialName[3]">ლაშა, თბილისი</p>
+                <p class="slider-name" data-field="testimonialName[3]" data-i18n="review.3.name">ნათია, თბილისი</p>
               </div>
             </article>
 
             <article class="reviews-card">
               <div class="slider-card">
-                <p class="slider-quote" data-field="testimonialText[4]">
-                  ყველის გემო ნამდვილად ფერმერულია — ყოველ შაბათს ვეკვეთით და ოჯახში ყველას სიამოვნება.
+                <p class="slider-quote" data-field="testimonialText[4]" data-i18n="review.4.text">
+                  ყველის გემო ნამდვილად ნატურალურია. ყოველ კვირას ვუკვეთავ და სტაბილურად სასიამოვნო.
                 </p>
-                <p class="slider-name" data-field="testimonialName[4]">თამარი, ბათუმი</p>
+                <p class="slider-name" data-field="testimonialName[4]" data-i18n="review.4.name">თამარი, თბილისი</p>
               </div>
             </article>
 
             <article class="reviews-card">
               <div class="slider-card">
-                <p class="slider-quote" data-field="testimonialText[5]">
-                  ბავშვები იოგურტს სიამოვნებით ართმევენ, რაც ჩვენთვის ყველაზე მთავარია. გმადლობთ ხარისხისთვის.
+                <p class="slider-quote" data-field="testimonialText[5]" data-i18n="review.5.text">
+                  რაც ჩვენთვის ყველაზე მთავარია ნატურალური პროდუქტები. გმადლობთ ხარისხისთვის.
                 </p>
-                <p class="slider-name" data-field="testimonialName[5]">ლელა, ქუთაისი</p>
+                <p class="slider-name" data-field="testimonialName[5]" data-i18n="review.5.name">ლელა, ქუთაისი</p>
               </div>
             </article>
           </div>
@@ -445,31 +445,31 @@
     <!-- Latest Articles  -->
     <section class="blog" id="blog">
       <div>
-        <h1 style="padding: 1rem;">როგორ ვამზადებთ ჩვენს პროდუქტებს</h1>
+        <h1 style="padding: 1rem;" data-i18n="blog.title">როგორ ვამზადებთ ჩვენს პროდუქტებს</h1>
          <div class="posts">
 
           <!-- Card 1 -->
           <a class="post" href="#">
             <div class="post__media">
-              <img data-field="postThumb[0]" src="./images/behindscene.avif" alt="სტატია ახალ ყველზე" />
+              <img data-field="postThumb[0]" src="./images/behindscene.avif" alt="სტატია ახალ ყველზე" data-i18n-alt="alt.blog0" />
             </div>
-            <div class="post__label"><span data-field="postLabel[0]">საუკეთესო რესტორნების არჩევანი</span></div>
+            <div class="post__label"><span data-field="postLabel[0]" data-i18n="blog.0.label">საუკეთესო რესტორნების არჩევანი</span></div>
           </a>
 
           <!-- Card 2 -->
           <a class="post" href="#">
             <div class="post__media">
-              <img data-field="postThumb[1]" src="./images/rdze3.webp" alt="სტატია ფერმის რძეზე" />
+              <img data-field="postThumb[1]" src="./images/rdze3.webp" alt="სტატია ფერმის რძეზე" data-i18n-alt="alt.blog1" />
             </div>
-            <div class="post__label"><span data-field="postLabel[1]">რატომ არის ფერმის რძე განსაკუთრებული</span></div>
+            <div class="post__label"><span data-field="postLabel[1]" data-i18n="blog.1.label">რატომ არის ფერმის რძე განსაკუთრებული</span></div>
           </a>
 
           <!-- Card 3 -->
           <a class="post" href="#">
             <div class="post__media">
-              <img data-field="postThumb[2]" src="./images/idk.png" alt="სტატია Natur Milk-ის ოჯახზე" />
+              <img data-field="postThumb[2]" src="./images/idk.png" alt="სტატია Natur Milk-ის ოჯახზე" data-i18n-alt="alt.blog2" />
             </div>
-            <div class="post__label"><span data-field="postLabel[2]">ჯანმრთელობა პირველია ჩვენს პროდუქტში</span></div>
+            <div class="post__label"><span data-field="postLabel[2]" data-i18n="blog.2.label">ჯანმრთელობა პირველია ჩვენს პროდუქტში</span></div>
           </a>
         </div>
       </div>
@@ -482,23 +482,23 @@
         <div class="split-cta__pane split-cta__pane--left">
           <div class="dome">
             <!-- static: not data-bound -->
-            <p class="dome__line">
+            <p class="dome__line" data-i18n="news.dome" data-i18n-html>
               ახალი <br /> პროდუქცია
             </p>
-            <p class="dome__date">გაზაფხული 2026</p>
+            <p class="dome__date" data-i18n="news.season">გაზაფხული 2026</p>
           </div>
         </div>
 
         <!-- RIGHT : newsletter -->
         <div class="split-cta__pane split-cta__pane--right">
-          <h2 class="split-cta__title" data-field="newsletterTitle">დარჩი ჩვენთან</h2>
-          <p class="split-cta__copy" data-field="newsletterCopyHtml">
+          <h2 class="split-cta__title" data-field="newsletterTitle" data-i18n="news.title">დარჩი ჩვენთან</h2>
+          <p class="split-cta__copy" data-field="newsletterCopyHtml" data-i18n="news.copy" data-i18n-html>
             მიიღე ახალი პროდუქტები,<br />ფერმის ამბები და შთაგონება პირდაპირ ელფოსტაზე.
           </p>
 
           <form class="join" onsubmit="return false;">
-            <input class="join__input" type="email" placeholder="შეიყვანე შენი ელფოსტა" required />
-            <button class="join__btn" type="submit" data-field="newsletterButton">გაგზავნა</button>
+            <input class="join__input" type="email" data-i18n-placeholder="news.placeholder" placeholder="შეიყვანე შენი ელფოსტა" required />
+            <button class="join__btn" type="submit" data-field="newsletterButton" data-i18n="news.submit">გაგზავნა</button>
           </form>
         </div>
       </div>
@@ -509,16 +509,16 @@
       <div class="container">
         <div class="bts__top">
           <a href="https://www.facebook.com/profile.php?id=61583330563736" target="_blank" rel="noopener noreferrer" class="bts__title-link">
-            <h2 class="bts__title" data-field="btsTitle">გამოგყვევი Facebook-ზე</h2>
+            <h2 class="bts__title" data-field="btsTitle" data-i18n="bts.title">გამოგყვევი Facebook-ზე</h2>
           </a>
         </div>
 
         <ul class="bts__grid">
-          <li><a class="bts__item" href="https://www.facebook.com/profile.php?id=61583330563736"><img data-field="btsThumb[0]" src="./images/blog1.jpg" alt="ფერმის კადრი 1" /></a></li>
-          <li><a class="bts__item" href="https://www.facebook.com/profile.php?id=61583330563736"><img data-field="btsThumb[1]" src="./images/dzroxa2.jpg" alt="ფერმის კადრი 2" /></a></li>
-          <li><a class="bts__item" href="https://www.facebook.com/profile.php?id=61583330563736"><img data-field="btsThumb[2]" src="./images/blog2.jpg" alt="ფერმის კადრი 3" /></a></li>
-          <li><a class="bts__item" href="https://www.facebook.com/profile.php?id=61583330563736"><img data-field="btsThumb[3]" src="./images/100natural.PNG" alt="ფერმის კადრი 4" /></a></li>
-          <li><a class="bts__item" href="https://www.facebook.com/profile.php?id=61583330563736"><img data-field="btsThumb[4]" src="./images/check.PNG" alt="ფერმის კადრი 5" /></a></li>
+          <li><a class="bts__item" href="https://www.facebook.com/profile.php?id=61583330563736"><img data-field="btsThumb[0]" src="./images/blog1.jpg" alt="ფერმის კადრი 1" data-i18n-alt="alt.bts0" /></a></li>
+          <li><a class="bts__item" href="https://www.facebook.com/profile.php?id=61583330563736"><img data-field="btsThumb[1]" src="./images/dzroxa2.jpg" alt="ფერმის კადრი 2" data-i18n-alt="alt.bts1" /></a></li>
+          <li><a class="bts__item" href="https://www.facebook.com/profile.php?id=61583330563736"><img data-field="btsThumb[2]" src="./images/blog2.jpg" alt="ფერმის კადრი 3" data-i18n-alt="alt.bts2" /></a></li>
+          <li><a class="bts__item" href="https://www.facebook.com/profile.php?id=61583330563736"><img data-field="btsThumb[3]" src="./images/100natural.PNG" alt="ფერმის კადრი 4" data-i18n-alt="alt.bts3" /></a></li>
+          <li><a class="bts__item" href="https://www.facebook.com/profile.php?id=61583330563736"><img data-field="btsThumb[4]" src="./images/check.PNG" alt="ფერმის კადრი 5" data-i18n-alt="alt.bts4" /></a></li>
         </ul>
       </div>
     </section>
@@ -531,34 +531,34 @@
         <div class="footer__grid">
           <div class="footer__left">
             <!-- static: not data-bound -->
-            <p class="footer__kicker">გამოიწერე და გახდი ნატურმილქის წევრი
+            <p class="footer__kicker" data-i18n="footer.subscribe">გამოიწერე და გახდი ნატურმილქის წევრი
             <form class="join" onsubmit="return false;">
-              <input class="join__input" type="email" placeholder="შეიყვანე შენი ელფოსტა" required />
-              <button class="join__btn" type="submit" data-field="footerSignupButton">გაგზავნა</button>
+              <input class="join__input" type="email" data-i18n-placeholder="news.placeholder" placeholder="შეიყვანე შენი ელფოსტა" required />
+              <button class="join__btn" type="submit" data-field="footerSignupButton" data-i18n="news.submit">გაგზავნა</button>
             </form>
           </div>
 
           <nav class="footer__links">
             <ul class="footer__col">
-              <li><a href="/" data-field="footerCol1[0]">მთავარი</a></li>
-              <li><a href="#shop" data-field="footerCol1[1]">მაღაზია</a></li>
-              <li><a href="#blog" data-field="footerCol1[2]">ბლოგი</a></li>
-              <li><a href="#newsletter" data-field="footerCol1[3]">კონტაქტი</a></li>
+              <li><a href="/" data-field="footerCol1[0]" data-i18n="footer.home">მთავარი</a></li>
+              <li><a href="#shop" data-field="footerCol1[1]" data-i18n="footer.shop">მაღაზია</a></li>
+              <li><a href="#blog" data-field="footerCol1[2]" data-i18n="footer.blog">ბლოგი</a></li>
+              <li><a href="#newsletter" data-field="footerCol1[3]" data-i18n="footer.contact">კონტაქტი</a></li>
             </ul>
             <ul class="footer__col">
-              <li><a href="#about" data-field="footerCol2[0]">ჩვენს შესახებ</a></li>
-              <li><a href="terms.html" data-field="footerCol2[1]">წესები და პირობები</a></li>
-              <li><a href="privacy.html" data-field="footerCol2[2]">კონფიდენციალურობის პოლიტიკა</a></li>
+              <li><a href="#about" data-field="footerCol2[0]" data-i18n="footer.about">ჩვენს შესახებ</a></li>
+              <li><a href="terms.html" data-field="footerCol2[1]" data-i18n="footer.terms">წესები და პირობები</a></li>
+              <li><a href="privacy.html" data-field="footerCol2[2]" data-i18n="footer.privacy">კონფიდენციალურობის პოლიტიკა</a></li>
             </ul>
           </nav>
         </div>
 
         <div class="footer__bottom">
           <p class="footer__credit">
-            <span data-field="footerCreditLeft">© 2026 Natur Milk. ყველა უფლება დაცულია.</span>
+            <span data-field="footerCreditLeft" data-i18n="footer.credit">© 2026 Natur Milk. ყველა უფლება დაცულია.</span>
             <span> </span>
           </p>
-          <div class="footer__socials" aria-label="სოციალური გვერდები">
+          <div class="footer__socials" data-i18n-aria="aria.social">
             <a href="#" aria-label="Facebook" class="ico fb" title="Facebook"></a>
             <a href="#" aria-label="Instagram" class="ico ig" title="Instagram"></a>
           </div>
@@ -570,10 +570,11 @@
     <script src="./js/lenis-init.js"></script>
     <script src="./js/hero-video.js"></script>
     <script src="./js/script.js"></script>
+    <script src="./js/index-i18n.js"></script>
     <script src="./js/navbar.js"></script>
 
     <!-- SCROLL TO TOP -->
-    <button class="scroll-top-btn" id="scrollTopBtn" aria-label="მაღლა">
+    <button class="scroll-top-btn" id="scrollTopBtn" data-i18n-aria="aria.scrollTop">
       <svg class="scroll-top-svg" viewBox="0 0 384 512">
         <path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"/>
       </svg>

@@ -530,6 +530,93 @@ a.brand > .brandmark[data-filled="1"] + .brand-fallback {
   }
 }
 
+/* Index hero — language switcher + right-side cluster */
+.site-nav--hero .nav-end {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.site-nav--hero .lang-switch {
+  appearance: none;
+  -webkit-appearance: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(31, 93, 58, 0.68);
+  padding: 0.42rem 0.2rem;
+  line-height: 1;
+  position: relative;
+  transition: color 0.18s ease;
+}
+
+.site-nav--hero .lang-switch::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1.5px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  border-radius: 1px;
+}
+
+.site-nav--hero .lang-switch:hover,
+.site-nav--hero .lang-switch:focus-visible {
+  color: #1f5d3a;
+}
+
+.site-nav--hero .lang-switch:hover::after,
+.site-nav--hero .lang-switch:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.site-nav--hero .lang-switch:focus-visible {
+  outline: 2px solid rgba(31, 93, 58, 0.28);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.site-nav--hero .lang-switch:active {
+  color: #184a2f;
+}
+
+@media (max-width: 768px) {
+  .site-nav--hero .nav-end {
+    grid-column: 2;
+    justify-self: end;
+    gap: 10px;
+  }
+
+  .site-nav--hero .nav-end .header-cta {
+    display: none;
+  }
+
+  .site-nav--hero .nav-toggle {
+    grid-column: auto;
+  }
+
+  .site-nav--hero .lang-switch {
+    font-size: 0.875rem;
+    letter-spacing: 0.12em;
+    min-width: 36px;
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.35rem 0.15rem;
+  }
+}
+
 
 /* Hero */
 .hero {
@@ -580,6 +667,12 @@ a.brand > .brandmark[data-filled="1"] + .brand-fallback {
   object-fit: cover;
   object-position: 65% center;
   pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+
+.hero-img.is-ready {
+  opacity: 1;
 }
 
 .hero-content {
@@ -745,11 +838,15 @@ a.brand > .brandmark[data-filled="1"] + .brand-fallback {
   }
 
   .hero-img {
+    height: clamp(480px, 75vh, 95vh);
     object-position: 60% center;
   }
 
   .hero-title {
-    font-size: clamp(18px, 6vw, 50px);
+    font-size: clamp(30px, 9vw, 56px);
+    text-align: center;
+    align-self: center;
+    width: 100%;
   }
 
   .hero-cta {

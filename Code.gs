@@ -454,7 +454,7 @@ function buildItemsTable(itemRowsHtml) {
 function buildDeliveryRow(isDelivery, deliveryText) {
   if (isDelivery) {
     return '<tr>' +
-      '<td style="padding:6px 0; color:#777;">მიწოდება <span style="font-size:12px; color:#e07b00; font-style:italic;">— კურიერთან გადასახადი ამანათის მიღების დროს</span></td>' +
+      '<td style="padding:6px 0; color:#777;">კურიერის გადასახადი</td>' +
       '<td style="text-align:right; color:#555;">' + escapeHtml(deliveryText) + '</td>' +
     '</tr>';
   }
@@ -559,8 +559,9 @@ function buildCustomerHtml(data) {
       itemsTable +
       '<table style="width:100%; font-size:15px; margin-top:16px; border-collapse:collapse;">' +
         '<tr><td style="padding:6px 0; color:#777;">მისამართი</td><td style="text-align:right;">' + address + '</td></tr>' +
+        '<tr><td style="padding:6px 0; color:#777;">პროდუქტების ჯამი</td><td style="text-align:right; color:#555;">' + itemsSubtotal + ' ₾</td></tr>' +
         deliveryRow +
-        '<tr><td style="padding:14px 0 6px; font-size:19px; font-weight:800; color:#065924;">სულ გადასახდელი</td><td style="text-align:right; font-size:19px; font-weight:800; color:#065924;">' + itemsSubtotal + ' ₾</td></tr>' +
+        '<tr><td style="padding:14px 0 6px; font-size:19px; font-weight:800; color:#065924;">სულ გადასახდელი</td><td style="text-align:right; font-size:19px; font-weight:800; color:#065924;">' + formatMoney(total) + ' ₾</td></tr>' +
       '</table>' +
       '<div style="background:#F7FFFA; border-left:4px solid #065924; padding:14px 18px; border-radius:8px; margin-top:24px; font-size:13px; color:#555; line-height:1.7;">' +
         'საბოლოო ფასი დადასტურდება შეფუთვის შემდეგ, საბოლოო წონის მიხედვით.<br>' +
@@ -683,7 +684,7 @@ function doPost(e) {
       (comment ? 'კომენტარი: ' + comment + '\n' : '') +
       '\n' + itemLines + '\n\n' +
       'პროდუქტების ჯამი: ' + itemsSubtotal + '₾\n' +
-      'მიწოდება: ' + deliveryText + '\n' +
+      (delivery > 0 ? 'კურიერის გადასახადი: ' + deliveryText + '\n' : 'მიწოდება: ' + deliveryText + '\n') +
       'სულ: ' + formatMoney(total) + '₾';
 
     GmailApp.sendEmail(
@@ -699,7 +700,9 @@ function doPost(e) {
         customerEmail,
         'გმადლობთ შეკვეთისთვის — Natur Milk',
         'გამარჯობა ' + customerName + '!\n\nგმადლობთ შეკვეთისთვის.\n\n' +
-          itemLinesCustomer + '\n\nსულ: ' + itemsSubtotal + ' ₾\nმიწოდება: ' + deliveryText + '\n\nNatur Milk-ის გუნდი',
+          itemLinesCustomer + '\n\nპროდუქტების ჯამი: ' + itemsSubtotal + ' ₾\n' +
+          (delivery > 0 ? 'კურიერის გადასახადი: ' : 'მიწოდება: ') + deliveryText + '\n' +
+          'სულ გადასახდელი: ' + formatMoney(total) + ' ₾\n\nNatur Milk-ის გუნდი',
         { htmlBody: customerHtml }
       );
     }

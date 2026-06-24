@@ -611,7 +611,7 @@
               <span class="opt-title">🚚 საკურიერო</span>
               <span class="opt-sub">თბილისის ფარგლებში</span>
             </div>
-            <span class="opt-price" id="deliveryPriceLabel">+ 5 ₾ <span style="display:block;font-size:11px;font-weight:400;color:#888;">(კურიერის სასარგებლოდ)</span></span>
+            <span class="opt-price" id="deliveryPriceLabel">+ 6 ₾</span>
           </label>
 
           <label class="delivery-opt-card" id="card-pickup">
@@ -694,7 +694,14 @@
 
       function updateDeliveryLabel(fee) {
         const lbl = document.getElementById("deliveryPriceLabel");
-        if (lbl) lbl.innerHTML = `+ ${fee} ₾ <span style="display:block;font-size:11px;font-weight:400;color:#888;">(კურიერის სასარგებლოდ)</span>`;
+        if (lbl) lbl.textContent = `+ ${fee} ₾`;
+      }
+
+      function updateCheckoutTotal(cart) {
+        const subtotal = cart.reduce((s, i) => s + CartUtils.getLineTotal(i), 0);
+        const deliveryVal = document.querySelector('input[name="deliveryType"]:checked')?.value || "delivery";
+        const fee = deliveryVal === "delivery" ? getDeliveryFee(cart) : 0;
+        document.getElementById("checkoutTotal").textContent = (subtotal + fee) + " ₾";
       }
 
       function onDeliveryChange() {
@@ -702,10 +709,9 @@
         document.getElementById("card-delivery").classList.toggle("is-selected", val === "delivery");
         document.getElementById("card-pickup").classList.toggle("is-selected", val === "pickup");
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
-        const subtotal = cart.reduce((s, i) => s + CartUtils.getLineTotal(i), 0);
         const fee = getDeliveryFee(cart);
         updateDeliveryLabel(fee);
-        document.getElementById("checkoutTotal").textContent = subtotal + " ₾";
+        updateCheckoutTotal(cart);
       }
 
       function loadSummary() {
@@ -750,14 +756,13 @@
             <tbody>${rows}</tbody>
           </table>
           <div class="summary-subtotal">
-            <span>ჯამი (საკურიეროს გარეშე)</span>
+            <span>პროდუქტების ჯამი</span>
             <span>${total} ₾</span>
           </div>`;
 
-        const deliveryVal = document.querySelector('input[name="deliveryType"]:checked')?.value || "delivery";
         const fee = getDeliveryFee(cart);
         updateDeliveryLabel(fee);
-        document.getElementById("checkoutTotal").textContent = total + " ₾";
+        updateCheckoutTotal(cart);
         updateNavbarCartCount();
       }
 
@@ -803,11 +808,8 @@
 
         const deliveryType = document.querySelector('input[name="deliveryType"]:checked')?.value || "delivery";
         const delivery = deliveryType === "delivery" ? getDeliveryFee(cart) : 0;
-        const deliveryNote = deliveryType === "delivery"
-          ? `<br><span style="font-size:13px;font-weight:400;color:#555;">კურიერთან გადასახადი ამანათის მიღების დროს</span>`
-          : "";
         const deliveryLabel = deliveryType === "delivery"
-          ? `საკურიეროს (+${delivery}₾)${deliveryNote}`
+          ? `საკურიერო (+${delivery} ₾)`
           : "თვითგამოტანა (უფასო)";
 
         const payload = {
